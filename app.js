@@ -1,0 +1,38 @@
+const Express = require("express");
+const ExpressGraphQL = require("express-graphql");
+const Mongoose = require("mongoose");
+const types = require('./graphql/schema/index')
+const genericResolver = require('./graphql/resolvers')
+
+var cors = require("cors");
+
+const {
+    GraphQLID,
+    GraphQLString,
+    GraphQLList,
+    GraphQLNonNull,
+    GraphQLObjectType,
+    GraphQLSchema,
+    buildSchema
+} = require("graphql");
+
+var graphql = require('graphql');
+
+const schema = buildSchema(types);
+//const schema = new graphql.GraphQLSchema(types);
+// Construct a schema, using GraphQL schema language
+
+var app = Express();
+Mongoose.connect("mongodb://mrmango:mrmango123456@ds255740.mlab.com:55740/heroku_gvmzwz8n", { useNewUrlParser: true });  
+
+app.use('*', cors());
+app.use("/graphql", ExpressGraphQL({
+    //schema: schema,
+    schema:    schema,
+    rootValue: genericResolver,
+    graphiql: true
+}));
+
+app.listen(3000, () => {
+    console.log("Listening at :3000...");
+});

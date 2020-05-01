@@ -1,0 +1,33 @@
+type Producto {
+    _id: ID!
+    name: String!
+    img: String!
+    description: String!
+  }
+   
+  input ProductoInput {
+   name: String!
+    img: String!
+    description: String!
+  }
+
+  input ProductoInputUpdate {
+    _id: ID!
+    name: String!
+    img: String!
+    description: String!
+  }
+
+  input ProductoInputDelete {
+    _id: ID!
+  }
+
+  type Query {
+    productos:[Producto!]
+  }
+
+  type Mutation {
+    createProducto(user:ProductoInput): Producto
+    updateProducto(user:ProductoInputUpdate): Producto
+    deleteProducto(user:ProductoInputDelete): Producto
+  }
