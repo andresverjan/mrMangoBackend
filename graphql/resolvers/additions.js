@@ -1,6 +1,6 @@
 const Additions = require('../../models/additions')
 module.exports = {
-    additionis: async args => {
+    additions: async args => {
         console.log("argumentos ");
         console.log(args);
     try {
