@@ -1,0 +1,34 @@
+type Subproducto {
+    _id: ID!
+    productoId: String!
+    name: String!
+    value: String!
+    description: String!
+    activo: String
+  }
+   
+  input subproductoInput {
+    name: String!
+    productoId:String!
+    value: String!
+    description: String!
+    activo: String
+  }
+
+  input subproductoInputUpdate {
+    _id: ID!
+    name: String!
+    productoId:String!
+    value: String!
+    description: String!
+    activo: String
+  }
+
+  input subproductoInputDelete {
+    _id: ID!
+  }
+
+  type Query {
+    subproductos:[Subproducto!]
+    getSubproductosByProductoId(productoId:Int!):[Subproducto!]
+  }

@@ -18,15 +18,23 @@ module.exports = {
 
   createUser: async args => {
   try {
-    const { name, lastName } = args.user
-    console.log(args);
+    const { name, lastName, phoneNumber, email } = args.user    
     const user = new User({
         name,
-        lastName
+        lastName,
+        phoneNumber,
+        email,
+        createdAt: new Date()
     })
-    const newUser = await user.save();
-    return { ...newUser._doc, _id: newUser.id }
-    //return { ...newUser}
+    const exist = await User.find( { email: { $eq: user.email}})
+    console.log(exist);
+    if (exist.length==0){
+       const newUser = await user.save();
+       return { ...newUser._doc, _id: newUser.id }
+    }else{
+        const newUser = exist[0];
+        return { ...newUser._doc, _id: newUser.id }
+    }
   }
   catch (error) {
       throw error
@@ -35,12 +43,14 @@ module.exports = {
 
  updateUser: async args => {
     try {
-      const { _id , name, lastName } = args.user
+      const { _id , name, lastName, phoneNumber, email } = args.user
       console.log(args);
      const userUpdate = new User({
          _id,
           name,
-          lastName
+          lastName,
+          phoneNumber,
+          email
       })
       const newUser = await User.findOneAndUpdate(userUpdate._id,  userUpdate );
       if (!newUser) {
