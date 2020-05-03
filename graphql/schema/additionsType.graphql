@@ -1,0 +1,33 @@
+type Additions {
+    _id: ID!
+    name: String!
+    img: String!
+    description: String
+    value: String!
+    active: String!  
+  }
+   
+  input AdditionsInput {
+   name: String!
+    img: String!
+    description: String
+    value: String!
+    active: String!
+  }
+
+  input AdditionsInputUpdate {
+    _id: ID!
+    name: String!
+    img: String!
+    description: String
+    value: String!
+    active: String!
+  }
+
+  input AdditionsInputDelete {
+    _id: ID!
+  }
+
+  type Query {
+    additions:[Additions!]
+  }

@@ -9,7 +9,6 @@ const {
     buildSchema
 } = require("graphql");
 
-var graphql = require('graphql');
 const schema = buildSchema(types);
 var app = Express();
 Mongoose.connect("mongodb://mrmango:mrmango123456@ds255740.mlab.com:55740/heroku_gvmzwz8n", { useNewUrlParser: true });  
