@@ -4,7 +4,8 @@ type User {
     lastName: String!
     email: String
     phoneNumber: String
-    createdAt: String
+    createdAt: String,
+    latlng: String
   }
    
   input UserInput {
@@ -12,6 +13,7 @@ type User {
     lastName: String!
     email: String
     phoneNumber: String
+    latlng: String
     createdAt: String
   }
   input UserInputUpdate {
@@ -19,7 +21,8 @@ type User {
     name: String!
     lastName: String!
     email: String
-    phoneNumber: String
+    phoneNumber: String    
+    latlng: String
     createdAt: String
   }
   input UserInputDelete {

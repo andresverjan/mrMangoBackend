@@ -16,6 +16,10 @@ const userSchema = new Schema({
     phoneNumber: {
         type: String,
         required: false
+    },
+    latlng: {
+        type: String,
+        required: false
     }
 
 }, { timestamps: true })

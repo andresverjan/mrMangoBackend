@@ -18,12 +18,13 @@ module.exports = {
 
   createUser: async args => {
   try {
-    const { name, lastName, phoneNumber, email } = args.user    
+    const { name, lastName, phoneNumber, email, latlng } = args.user    
     const user = new User({
         name,
         lastName,
         phoneNumber,
         email,
+        latlng,
         createdAt: new Date()
     })
     const exist = await User.find( { email: { $eq: user.email}})
@@ -43,14 +44,15 @@ module.exports = {
 
  updateUser: async args => {
     try {
-      const { _id , name, lastName, phoneNumber, email } = args.user
+      const { _id , name, lastName, phoneNumber, email, latlng } = args.user
       console.log(args);
      const userUpdate = new User({
          _id,
           name,
           lastName,
           phoneNumber,
-          email
+          email,
+          latlng
       })
       const newUser = await User.findOneAndUpdate(userUpdate._id,  userUpdate );
       if (!newUser) {
