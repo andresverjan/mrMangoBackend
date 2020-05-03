@@ -3,7 +3,6 @@ const ExpressGraphQL = require("express-graphql");
 const Mongoose = require("mongoose");
 const types = require('./graphql/schema/index')
 const genericResolver = require('./graphql/resolvers')
-
 var cors = require("cors");
 
 const {    
@@ -11,9 +10,7 @@ const {
 } = require("graphql");
 
 var graphql = require('graphql');
-
 const schema = buildSchema(types);
-
 var app = Express();
 Mongoose.connect("mongodb://mrmango:mrmango123456@ds255740.mlab.com:55740/heroku_gvmzwz8n", { useNewUrlParser: true });  
 
