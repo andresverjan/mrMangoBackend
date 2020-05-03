@@ -35,5 +35,6 @@ type User {
 
   type Mutation {
     createUser(user:UserInput): User
-    updateUser(user:UserInputUpdate): User    
+    updateUser(user:UserInputUpdate): User
+    deleteUser(user:UserInputDelete): User
   }
