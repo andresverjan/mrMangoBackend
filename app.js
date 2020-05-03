@@ -19,15 +19,12 @@ const {
 var graphql = require('graphql');
 
 const schema = buildSchema(types);
-//const schema = new graphql.GraphQLSchema(types);
-// Construct a schema, using GraphQL schema language
 
 var app = Express();
 Mongoose.connect("mongodb://mrmango:mrmango123456@ds255740.mlab.com:55740/heroku_gvmzwz8n", { useNewUrlParser: true });  
 
 app.use('*', cors());
 app.use("/graphql", ExpressGraphQL({
-    //schema: schema,
     schema:    schema,
     rootValue: genericResolver,
     graphiql: true
