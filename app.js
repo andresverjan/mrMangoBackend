@@ -6,13 +6,7 @@ const genericResolver = require('./graphql/resolvers')
 
 var cors = require("cors");
 
-const {
-    GraphQLID,
-    GraphQLString,
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLObjectType,
-    GraphQLSchema,
+const {    
     buildSchema
 } = require("graphql");
 
