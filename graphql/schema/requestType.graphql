@@ -1,0 +1,46 @@
+type Request {
+    _id: ID!  
+    requestId: String!
+    productoId: String!
+    subproductoId: String!
+    userId: String!
+    latlng: String
+    createdAt: String
+    updatedAt: String
+  }
+  input RequestInput {
+    requestId: String!
+    productoId: String!
+    subproductoId: String!
+    userId: String!
+    latlng: String
+    createdAt: String
+    updatedAt: String
+  }
+
+
+  input RequestInputUpdate {
+    _id: ID!
+    requestId: String!
+    productoId: String!
+    subproductoId: String!
+    userId: String!
+    latlng: String
+    createdAt: String
+    updatedAt: String
+  }
+  
+  input RequestInputDelete {
+    _id: ID!
+  }
+
+type Query {
+  requests:[Request!]
+}
+
+type Mutation { 
+  createRequest(request:RequestInput): Request      
+  updateRequest(request:RequestInputUpdate): Request
+  deleteRequest(request:RequestInputDelete): Request
+}
+
