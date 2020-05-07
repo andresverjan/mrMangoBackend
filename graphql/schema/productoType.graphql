@@ -1,18 +1,21 @@
 type Producto {
     _id: ID!
+    id: String!
     name: String!
     img: String!
     description: String!
   }
    
   input ProductoInput {
-   name: String!
+    id: String!
+    name: String!
     img: String!
     description: String!
   }
 
   input ProductoInputUpdate {
     _id: ID!
+    id: String!
     name: String!
     img: String!
     description: String!
