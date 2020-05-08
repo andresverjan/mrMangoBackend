@@ -6,6 +6,7 @@ type User {
     phoneNumber: String
     createdAt: String,
     latlng: String
+    jwt: String
   }
    
   input UserInput {
@@ -15,6 +16,7 @@ type User {
     phoneNumber: String
     latlng: String
     createdAt: String
+    jwt: String
   }
   input UserInputUpdate {
     _id: ID!
@@ -24,6 +26,7 @@ type User {
     phoneNumber: String    
     latlng: String
     createdAt: String
+    jwt: String
   }
   input UserInputDelete {
     _id: ID!

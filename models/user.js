@@ -20,6 +20,10 @@ const userSchema = new Schema({
     latlng: {
         type: String,
         required: false
+    },
+    jwt: {
+        type: String,
+        required: false
     }
 
 }, { timestamps: true })
