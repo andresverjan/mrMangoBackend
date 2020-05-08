@@ -18,13 +18,15 @@ module.exports = {
 
   createUser: async args => {
   try {
-    const { name, lastName, phoneNumber, email, latlng } = args.user    
+    const { name, lastName, phoneNumber, email, latlng, jwt, urlPhoto } = args.user    
     const user = new User({
         name,
         lastName,
         phoneNumber,
         email,
         latlng,
+        jwt,
+        urlPhoto,
         createdAt: new Date()
     })
     const exist = await User.find( { email: { $eq: user.email}})
