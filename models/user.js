@@ -24,6 +24,10 @@ const userSchema = new Schema({
     jwt: {
         type: String,
         required: false
+    },
+    urlPhoto: {
+        type: String,
+        required: false
     }
 
 }, { timestamps: true })

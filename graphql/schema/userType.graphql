@@ -7,6 +7,7 @@ type User {
     createdAt: String,
     latlng: String
     jwt: String
+    urlPhoto: String
   }
    
   input UserInput {
@@ -17,6 +18,7 @@ type User {
     latlng: String
     createdAt: String
     jwt: String
+    urlPhoto: String
   }
   input UserInputUpdate {
     _id: ID!
@@ -27,6 +29,7 @@ type User {
     latlng: String
     createdAt: String
     jwt: String
+    urlPhoto: String
   }
   input UserInputDelete {
     _id: ID!
