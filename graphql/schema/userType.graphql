@@ -1,8 +1,8 @@
 type User {
     _id: ID!
     name: String!
-    lastName: String!
-    email: String
+    lastName: String
+    email: String!
     phoneNumber: String
     createdAt: String,
     latlng: String
@@ -12,8 +12,8 @@ type User {
    
   input UserInput {
     name: String!
-    lastName: String!
-    email: String
+    lastName: String
+    email: String!
     phoneNumber: String
     latlng: String
     createdAt: String
@@ -23,8 +23,8 @@ type User {
   input UserInputUpdate {
     _id: ID!
     name: String!
-    lastName: String!
-    email: String
+    lastName: String
+    email: String!
     phoneNumber: String    
     latlng: String
     createdAt: String

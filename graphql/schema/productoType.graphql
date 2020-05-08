@@ -3,14 +3,14 @@ type Producto {
     id: String!
     name: String!
     img: String!
-    description: String!
+    description: String
   }
    
   input ProductoInput {
     id: String!
     name: String!
     img: String!
-    description: String!
+    description: String
   }
 
   input ProductoInputUpdate {
@@ -18,7 +18,7 @@ type Producto {
     id: String!
     name: String!
     img: String!
-    description: String!
+    description: String
   }
 
   input ProductoInputDelete {

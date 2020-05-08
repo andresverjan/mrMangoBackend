@@ -15,6 +15,7 @@ const productoSchema = new Schema({
     },
     description: {
         type: String,
-        required: false    }
+        required: false   
+     }
 }, { timestamps: true })
 module.exports = mongoose.model('products', productoSchema)
