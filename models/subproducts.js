@@ -17,5 +17,9 @@ const subproductsSchema = new Schema({
         type: String,
         required: false    
     },
+    img: {
+        type: String,
+        required: false    
+    },
 }, { timestamps: true })
 module.exports = mongoose.model('subproducts', subproductsSchema)

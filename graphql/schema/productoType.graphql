@@ -1,36 +1,36 @@
 type Producto {
-    _id: ID!
-    id: String!
-    name: String!
-    img: String!
-    description: String
-  }
-   
-  input ProductoInput {
-    id: String!
-    name: String!
-    img: String!
-    description: String
-  }
+  _id: ID!
+  id: String!
+  name: String!
+  img: String!
+  description: String
+}
 
-  input ProductoInputUpdate {
-    _id: ID!
-    id: String!
-    name: String!
-    img: String!
-    description: String
-  }
+input ProductoInput {
+  id: String!
+  name: String!
+  img: String!
+  description: String
+}
 
-  input ProductoInputDelete {
-    _id: ID!
-  }
+input ProductoInputUpdate {
+  _id: ID!
+  id: String!
+  name: String!
+  img: String!
+  description: String
+}
 
-  type Query {
-    productos:[Producto!]
-  }
+input ProductoInputDelete {
+  _id: ID!
+}
 
-  type Mutation {
-    createProducto(user:ProductoInput): Producto
-    updateProducto(user:ProductoInputUpdate): Producto
-    deleteProducto(user:ProductoInputDelete): Producto
-  }
+type Query {
+  productos: [Producto!]
+}
+
+type Mutation {
+  createProducto(user: ProductoInput): Producto
+  updateProducto(user: ProductoInputUpdate): Producto
+  deleteProducto(user: ProductoInputDelete): Producto
+}
