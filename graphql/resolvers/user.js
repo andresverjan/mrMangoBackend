@@ -46,17 +46,24 @@ module.exports = {
 
  updateUser: async args => {
     try {
-      const { _id , name, lastName, phoneNumber, email, latlng } = args.user
+      const { _id , name, lastName, phoneNumber, email, latlng, jwt, urlPhoto} = args.user
       console.log(args);
-     const userUpdate = new User({
+      const user = new User({
+        _id
+     });
+     const userUpdate = {
           name,
           lastName,
           phoneNumber,
           email,
-          latlng
-      });
+          latlng,
+          jwt,
+          urlPhoto
+      };
 
-      const newUser = await User.findOneAndUpdate(_id,  userUpdate);
+      const newUser = await User.findOneAndUpdate({_id:_id},  
+        { $set: userUpdate }
+        );
       if (!newUser) {
         throw new Error('User not found');
       }
