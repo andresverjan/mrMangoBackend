@@ -49,7 +49,6 @@ module.exports = {
       const { _id , name, lastName, phoneNumber, email, latlng } = args.user
       console.log(args);
      const userUpdate = new User({
-         _id,
           name,
           lastName,
           phoneNumber,
