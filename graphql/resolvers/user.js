@@ -49,7 +49,7 @@ module.exports = {
       const { _id , name, lastName, phoneNumber, email, latlng } = args.user
       console.log(args);
      const userUpdate = new User({
-          id: _id,
+          _id,
           name,
           lastName,
           phoneNumber,
@@ -57,7 +57,7 @@ module.exports = {
           latlng
       });
 
-      const newUser = await User.findOneAndUpdate(id,  userUpdate );
+      const newUser = await User.findOneAndUpdate(userUpdate._id,  userUpdate);
       if (!newUser) {
         throw new Error('User not found');
       }

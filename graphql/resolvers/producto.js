@@ -34,7 +34,7 @@ module.exports = {
 
  updateProducto: async args => {
     try {
-      const { _id , name, lastName } = args.user
+      const { _id , name, lastName } = args.producto
       
      const userUpdate = new Producto({
          _id,
