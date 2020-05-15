@@ -19,7 +19,7 @@ module.exports = {
   createUser: async args => {
   try {
     const { name, lastName, phoneNumber, email, latlng, jwt, urlPhoto } = args.user    
-    const user = new User({
+    const user  = {
         name,
         lastName,
         phoneNumber,
@@ -28,16 +28,10 @@ module.exports = {
         jwt,
         urlPhoto,
         createdAt: new Date()
-    })
-    const exist = await User.find( { email: { $eq: user.email}})
-    console.log(exist);
-    if (exist.length==0){
-       const newUser = await user.save();
-       return { ...newUser._doc, _id: newUser.id }
-    }else{
-        const newUser = exist[0];
-        return { ...newUser._doc, _id: newUser.id }
-    }
+    };
+
+    const newUser = await User.findOneAndUpdate({email: { $eq: user.email}}, { $set: user }, { new: true,  upsert: true} );
+    return { ...newUser._doc, _id: newUser.id };
   }
   catch (error) {
       throw error
@@ -46,12 +40,9 @@ module.exports = {
 
  updateUser: async args => {
     try {
-      const { _id , name, lastName, phoneNumber, email, latlng, jwt, urlPhoto} = args.user
-      console.log(args);
-      const user = new User({
-        _id
-     });
+      const { _id , name, lastName, phoneNumber, email, latlng, jwt, urlPhoto} = args.user;     
      const userUpdate = {
+          _id,
           name,
           lastName,
           phoneNumber,
@@ -60,15 +51,16 @@ module.exports = {
           jwt,
           urlPhoto
       };
-
-      const newUser = await User.findOneAndUpdate({_id:_id},  
-        { $set: userUpdate }
-        );
+      for(let prop in userUpdate) {
+        if(!userUpdate[prop]){
+          delete userUpdate[prop];
+        }
+      }
+      const newUser = await User.findOneAndUpdate({_id:userUpdate._id}, { $set: userUpdate },  {new: true} );
       if (!newUser) {
         throw new Error('User not found');
       }
       return { ...newUser._doc, _id: newUser.id }
-      //return { ...newUser}
     }
     catch (error) {
         throw error
