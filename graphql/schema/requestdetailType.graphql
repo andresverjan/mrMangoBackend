@@ -1,0 +1,46 @@
+type RequestDetailType {
+  _id: ID!
+  requestId: String!
+  productoId: String!
+  subproductoId: String!
+  carSubproductoId: String!
+  userId: String!
+  latlng: String
+  name: String
+  value: String
+  createdAt: String
+  updatedAt: String
+}
+
+
+input RequestDetailInput {
+  _id: ID
+  requestId: String
+  productoId: String!
+  subproductoId: String!
+  carSubproductoId: String
+  userId: String
+  latlng: String
+  name: String
+  value: String
+  createdAt: String
+  updatedAt: String
+}
+
+input RequestDetailInputUpdate {
+  _id: ID!
+  requestId: String
+  productoId: String!
+  subproductoId: String!
+  carSubproductoId: String!
+  userId: String
+  latlng: String
+  name: String
+  value: String
+  createdAt: String
+  updatedAt: String
+}
+
+input RequestDetailInputDelete {
+  _id: ID! 
+}

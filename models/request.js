@@ -1,14 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-const requestSchema = new Schema({
-    productoId: {
-        type: String,
-        required: true
-    },
-    subproductoId: {
-        type: String,
-        required: false
-    },
+const requestSchema = new Schema({  
     latlng: {
         type: String,
         required: false
@@ -17,9 +9,9 @@ const requestSchema = new Schema({
         type: String,
         required: false
     },
-    requestId: {
+    total: {
         type: String,
-        required: false
+        required: true
     }
 }, { timestamps: true })
 module.exports = mongoose.model('requests', requestSchema)

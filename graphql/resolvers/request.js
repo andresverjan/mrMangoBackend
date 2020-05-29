@@ -1,4 +1,5 @@
 const Request = require('../../models/request')
+const RequestDetail = require('../../models/requestdetails')
 
 module.exports = {
     requests: async args => {
@@ -10,27 +11,67 @@ module.exports = {
                     _id: item.id,
                     createdAt: item._doc.createdAt?new Date(item._doc.createdAt).toISOString():new Date().toISOString(),
                     updatedAt: item._doc.updatedAt?new Date(item._doc.updatedAt).toISOString():new Date().toISOString()
-                }
+                } 
             })           
         }
         catch (error) {
             throw error
         }
     },
+    
+    getDetailByRequestId: async args => {
+        try {
+          console.log("argumentos ");
+          console.log(args);
+          const  requestId = args.requestId;
+          console.log("el  valor es: " + requestId);
+          const list = await Request.find( { _id: { $eq: requestId}});
+          const details = await RequestDetail.find( { requestId: { $eq: requestId}});          
+          if (!list) {              
+            throw new Error('not found');
+          }
+          return list.map(item => {
+            return {
+                ...item._doc,            
+                _id: item.id,
+                details: details,
+                createdAt: item._doc.createdAt?new Date(item._doc.createdAt).toISOString():new Date().toISOString(),
+                updatedAt: item._doc.updatedAt?new Date(item._doc.updatedAt).toISOString():new Date().toISOString()
+            }
+        })
+        }
+        catch (error) {
+            throw error
+        }
+       },
+
     createRequest: async args => {
         try {
-            const { requestId, productoId, subproductoId, userId, latlng } = args.request
-            const request = new Request({
-                requestId,
-                productoId,
-                subproductoId,
+            const { userId, latlng, total, details } = args.request
+            console.group(details);
+
+            const request = new Request({                            
                 userId,
                 latlng,
+                total,
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString()
-            })
-            const newUser = await request.save();
-            return { ...newUser._doc, _id: newUser.id }
+            });
+            
+            const newObj = await request.save();
+           let newDetail=  details.map(addition => {
+                return {
+                    ...addition,
+                    requestId: newObj._id,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                } 
+            });
+
+            console.log(newDetail);
+            responseDetails= RequestDetail.insertMany(newDetail);
+            console.log(responseDetails);
+            return { ...newObj._doc, _id: newObj.id }
         }
         catch (error) {
             throw error
