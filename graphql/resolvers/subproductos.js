@@ -5,7 +5,8 @@ module.exports = {
         console.log("argumentos ");
         console.log(args);
     try {
-       const list = await Subproducto.find()
+       const list = await Subproducto.find();
+       console.log(list);
         return list.map(item => {
             return {
                 ...item._doc,

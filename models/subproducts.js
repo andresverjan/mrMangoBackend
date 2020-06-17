@@ -21,5 +21,9 @@ const subproductsSchema = new Schema({
         type: String,
         required: false    
     },
+    comercioId: {
+        type: String,
+        required: false    
+    },
 }, { timestamps: true })
 module.exports = mongoose.model('subproducts', subproductsSchema)

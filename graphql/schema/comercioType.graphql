@@ -1,0 +1,36 @@
+type Comercio {
+  _id: ID!
+  id: String!
+  name: String!
+  location: String!
+  description: String
+}
+
+input ComercioInput {
+  id: String!
+  name: String!
+  location: String!
+  description: String
+}
+
+input ComercioInputUpdate {
+  _id: ID!
+  id: String!
+  name: String!
+  location: String!
+  description: String
+}
+
+input ComercioInputDelete {
+  _id: ID!
+}
+
+type Query {
+  comercios: [Comercio!]
+}
+
+type Mutation {
+  createComercio(user: ComercioInput): Comercio
+  updateComercio(user: ComercioInputUpdate): Comercio
+  deleteComercio(user: ComercioInputDelete): Comercio
+}

@@ -1,6 +1,7 @@
 type Subproducto {
     _id: ID!
     productoId: String!
+    comercioId: String!
     name: String!
     value: String!
     description: String!
@@ -10,7 +11,8 @@ type Subproducto {
    
   input subproductoInput {
     name: String!
-    productoId:String!
+    comercioId: String
+    productoId: String!
     value: String!
     description: String!
     activo: String
@@ -21,6 +23,7 @@ type Subproducto {
     _id: ID!
     name: String!
     productoId:String!
+    comercioId: String
     value: String!
     description: String!
     activo: String
