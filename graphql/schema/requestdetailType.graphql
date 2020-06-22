@@ -1,10 +1,10 @@
 type RequestDetailType {
   _id: ID!
   requestId: String!
-  productoId: String!
-  subproductoId: String!
-  carSubproductoId: String!
-  userId: String!
+  productoId: String
+  subproductoId: String
+  carSubproductoId: String
+  userId: String
   latlng: String
   name: String
   value: String

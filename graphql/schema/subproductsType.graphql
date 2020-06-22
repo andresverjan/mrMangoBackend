@@ -36,5 +36,5 @@ type Subproducto {
 
   type Query {
     subproductos:[Subproducto!]
-    getSubproductosByProductoId(productoId:Int!):[Subproducto!]
+    getSubproductosByProductoId(productoId:Int!, comercioId:String):[Subproducto!]
   }

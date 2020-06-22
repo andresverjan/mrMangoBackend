@@ -13,7 +13,7 @@ input RequestInput {
   latlng: String
   createdAt: String
   updatedAt: String
-total: String!
+  total: String!
   details: [RequestDetailInput!]
 }
 
@@ -34,6 +34,7 @@ input RequestInputDelete {
 type Query {
   requests: [Request!]
   getDetailByRequestId(requestId:String!):[Request!]
+  getMyRequest(userId:String!):[Request!]
 }
 
 type Mutation {

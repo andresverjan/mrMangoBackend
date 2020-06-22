@@ -2,15 +2,15 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 const RequestDetailsSchema = new Schema({
     requestId: {
-        type: String,
+        type: mongoose.Schema.ObjectId,
         required: true
     },
     productoId: {
-        type: String,
+        type: mongoose.Schema.ObjectId,
         required: true
     },
     subproductoId: {
-        type: String,
+        type: mongoose.Schema.ObjectId,
         required: false
     },
     carSubproductoId: {
@@ -18,7 +18,7 @@ const RequestDetailsSchema = new Schema({
         required: false
     },
     userId: {
-        type: String,
+        type: mongoose.Schema.ObjectId,
         required: false
     },
     latlng: {

@@ -23,9 +23,17 @@ module.exports = {
       console.log("argumentos ");
       console.log(args);
       const  productoId = args.productoId;
+      const  comercioId = args.comercioId? args.comercioId:1;
       console.log("el  valor es: " + productoId);
+      console.log("el  valor es: " + comercioId);
     
-      const list = await Subproducto.find( { productoId: { $eq: productoId}})
+      const list = await Subproducto.find( { 
+          productoId: { $eq: productoId},
+          //comercioId: { $eq: parseInt(comercioId)},
+          //comercioId: "1", 
+        });
+        console.log(list);
+
       if (!list) {
         throw new Error('not found');
       }

@@ -45,6 +45,87 @@ module.exports = {
         }
        },
 
+    getMyRequest: async args =>
+    {
+        try {
+            console.log("argumentos ");
+            console.log(args);
+            const  userId = args.userId;
+            console.log("el  userId es: " + userId);
+
+           const joinTable = await Request
+           .aggregate(
+            [
+                { 
+                    "$project" : {
+                        "request" : "$$ROOT",
+                        "userId": 1,
+                        "total":1,
+                    }
+                }, 
+                { 
+                    "$lookup" : { 
+                        "localField" : "request._id", 
+                        "from" : "requestdetails", 
+                        "foreignField" : "requestId", 
+                        "as" : "details"
+                    }
+                }, 
+                { 
+                    "$unwind" : { 
+                        "path" : "$details", 
+                        "preserveNullAndEmptyArrays" : false
+                    }
+                }, 
+                { 
+                    "$lookup" : { 
+                        "localField" : "details.subproductoId", 
+                        "from" : "subproducts", 
+                        "foreignField" : "_id", 
+                        "as" : "subproducts"
+                    }
+                }, 
+                { 
+                    "$unwind" : { 
+                        "path" : "$subproducts", 
+                        "preserveNullAndEmptyArrays" : false
+                    }
+                }, 
+                { 
+                    "$match" : { 
+                        "request.userId" : "5ebdc068a9f7740017c79d1f"
+                    }
+                }
+            ]
+        );
+            
+            console.log("**********************");
+            //console.log(joinTable);
+            console.log("**********************");            
+           
+            //const details = await RequestDetail.find( { requestId: { $eq: requestId}});
+
+            if (!joinTable) {
+              throw new Error('not found');
+            }
+            return joinTable.map(item => {
+                console.log(item);
+              return {
+                  ...item._doc,            
+                  _id: item.id,
+                  total : item.request.total,
+                  userId: item.request.userId,
+                  createdAt: item.request.createdAt,
+                  details : [item.details],
+                  subproducto : item.subproducts
+              }
+          })
+          }
+          catch (error) {
+              throw error
+          }
+    },
+
     createRequest: async args => {
         try {
             const { userId, latlng, total, details } = args.request
