@@ -92,16 +92,19 @@ module.exports = {
             return joinTable.map(item => {
                 return {
                     ...item._doc,
-                    _id: item.id, 
-                    userId: item.userId,
-                    total : item.total,
+                    _id       : item.id, 
+                    userId    : item.userId,
+                    total     : item.total,
+                    createdAt : item.createdAt,
                     details: item.details.map(detalle=> {
                         return  {                             
                             ...detalle.doc,
                             _id           : detalle.id,
                             requestId     : detalle.requestId,                            
                             subproductoId : detalle.subproductoId,
-                            subproducto   : detalle.subproducto[0]
+                            subproducto   : detalle.subproducto[0],
+                            createdAt     : detalle.createdAt,
+                            value         : detalle.value
                         }
                     })
                 }
