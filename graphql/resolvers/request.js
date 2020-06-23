@@ -95,7 +95,7 @@ module.exports = {
                     _id       : item.id, 
                     userId    : item.userId,
                     total     : item.total,
-                    createdAt : item.createdAt,
+                    createdAt: item.createdAt ? new Date(item._doc.createdAt).toISOString() : new Date().toISOString(),                    
                     details: item.details.map(detalle=> {
                         return  {                             
                             ...detalle.doc,
@@ -103,7 +103,7 @@ module.exports = {
                             requestId     : detalle.requestId,                            
                             subproductoId : detalle.subproductoId,
                             subproducto   : detalle.subproducto[0],
-                            createdAt     : detalle.createdAt,
+                            createdAt     : detalle.createdAt ? new Date(detalle._doc.createdAt).toISOString() : new Date().toISOString(),
                             value         : detalle.value
                         }
                     })
