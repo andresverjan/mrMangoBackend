@@ -1,6 +1,6 @@
 type RequestDetailType {
   _id: ID!
-  requestId: String!
+  requestId: ID!
   productoId: String
   subproductoId: String
   carSubproductoId: String
