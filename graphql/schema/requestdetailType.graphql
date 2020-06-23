@@ -1,10 +1,8 @@
 type RequestDetailType {
   _id: ID!
   requestId: ID!
-  productoId: String
-  subproductoId: String
+  subproductoId: ID!
   carSubproductoId: String
-  userId: String
   latlng: String
   name: String
   value: String
@@ -15,11 +13,9 @@ type RequestDetailType {
 
 input RequestDetailInput {
   _id: ID
-  requestId: String
-  productoId: String!
+  requestId: ID
   subproductoId: String!
   carSubproductoId: String
-  userId: String
   latlng: String
   name: String
   value: String
@@ -29,7 +25,7 @@ input RequestDetailInput {
 
 input RequestDetailInputUpdate {
   _id: ID!
-  requestId: String
+  requestId: ID
   productoId: String!
   subproductoId: String!
   carSubproductoId: String!

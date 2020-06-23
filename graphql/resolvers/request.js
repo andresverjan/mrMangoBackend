@@ -140,7 +140,7 @@ module.exports = {
             });
             
             const newObj = await request.save();
-           let newDetail=  details.map(addition => {
+            let newDetail= details.map(addition => {
                 return {
                     ...addition,
                     requestId: newObj._id,
@@ -148,7 +148,6 @@ module.exports = {
                     updatedAt: new Date().toISOString()
                 } 
             });
-
             console.log(newDetail);
             responseDetails= RequestDetail.insertMany(newDetail);
             console.log(responseDetails);

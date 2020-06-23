@@ -5,20 +5,12 @@ const RequestDetailsSchema = new Schema({
         type: mongoose.Schema.ObjectId,
         required: true
     },
-    productoId: {
+    subproductoId: {
         type: mongoose.Schema.ObjectId,
         required: true
     },
-    subproductoId: {
-        type: mongoose.Schema.ObjectId,
-        required: false
-    },
     carSubproductoId: {
         type: String,
-        required: false
-    },
-    userId: {
-        type: mongoose.Schema.ObjectId,
         required: false
     },
     latlng: {
@@ -30,11 +22,6 @@ const RequestDetailsSchema = new Schema({
         required: false
     },
     value:{
-        type: String,
-        required: false
-    },
-
-    requestId: {
         type: String,
         required: false
     }
