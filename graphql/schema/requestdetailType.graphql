@@ -8,6 +8,7 @@ type RequestDetailType {
   value: String
   createdAt: String
   updatedAt: String
+  subproducto: Subproducto
 }
 
 
