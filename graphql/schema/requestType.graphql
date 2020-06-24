@@ -4,6 +4,7 @@ type Request {
   latlng: String
   createdAt: String
   updatedAt: String
+  status: String
   total: String!
   details: [RequestDetailType!]
 }
@@ -13,6 +14,7 @@ input RequestInput {
   latlng: String
   createdAt: String
   updatedAt: String
+  status: String
   total: String!
   details: [RequestDetailInput!]
 }
@@ -23,6 +25,7 @@ input RequestInputUpdate {
   latlng: String
   createdAt: String
   updatedAt: String
+  status: String
   total: String!
   details: [RequestDetailInputUpdate!]
 }

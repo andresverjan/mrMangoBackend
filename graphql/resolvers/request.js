@@ -78,7 +78,7 @@ module.exports = {
                         },
                         {
                             "$match": {
-                                "userId": "5eef64986e486e961799744f"
+                                "userId": userId
                             }
                         }
                     ]);
@@ -124,6 +124,7 @@ module.exports = {
                 userId,
                 latlng,
                 total,
+                status: "1",
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString()
             });
