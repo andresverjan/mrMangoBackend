@@ -9,9 +9,10 @@ module.exports = {
             return listado.map(item => {
                 return {
                     ...item._doc,
-                    _id: item.id,
-                    createdAt: item._doc.createdAt ? new Date(item._doc.createdAt).toISOString() : new Date().toISOString(),
-                    updatedAt: item._doc.updatedAt ? new Date(item._doc.updatedAt).toISOString() : new Date().toISOString()
+                    _id       : item.id,
+                    createdAt : item._doc.createdAt ? new Date(item._doc.createdAt).toISOString() : new Date().toISOString(),
+                    updatedAt : item._doc.updatedAt ? new Date(item._doc.updatedAt).toISOString() : new Date().toISOString(),
+                    status    : item.status ? item.status : "1",
                 }
             })
         }
@@ -95,6 +96,7 @@ module.exports = {
                     _id       : item.id, 
                     userId    : item.userId,
                     total     : item.total,
+                    status    : item.status ? item.status : "1",
                     createdAt: item.createdAt ? new Date(item.createdAt).toISOString() : new Date().toISOString(),                    
                     details: item.details.map(detalle=> {
                         return  {                             
