@@ -45,4 +45,5 @@ type Mutation {
   createRequest(request: RequestInput): Request
   updateRequest(request: RequestInputUpdate): Request
   deleteRequest(request: RequestInputDelete): Request
+  cancelRequest(request: RequestInputDelete): Request 
 }

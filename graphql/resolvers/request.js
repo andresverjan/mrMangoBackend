@@ -173,6 +173,27 @@ module.exports = {
         }
     },
 
+    cancelRequest: async args => {
+        try {
+            const { _id } = args.request
+            console.log(args);
+            const request = new Request({
+                _id: _id,
+                status: 4
+            })
+            //const newRequest = await Request.findOneAndUpdate(request._id, request);
+            const newRequest = await Request.findOneAndUpdate({_id: { $eq: request._id}}, { $set: request }, { new: true,  upsert: true} );
+
+            if (!newRequest) {
+                throw new Error('Request not found');
+            }
+            return { ...newRequest._doc, _id: newRequest.id }
+        }
+        catch (error) {
+            throw error
+        }
+    },
+
     deleteRequest: async args => {
         try {
             const { _id } = args.request
