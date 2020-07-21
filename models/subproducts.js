@@ -22,7 +22,7 @@ const subproductsSchema = new Schema({
         required: false    
     },
     comercioId: {
-        type: String,
+        type: Number,
         required: false    
     },
 }, { timestamps: true })

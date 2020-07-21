@@ -1,13 +1,47 @@
-const Comercio = require('../../models/comercios')
+const Comercio = require('../../models/comercios');
+const User = require('../../models/user');
+const helpers = require('../../helpers');
 
 module.exports = {
+
+    getComercioByLocation: async ({location}, ctx) => {
+        try {
+            const list = await Comercio.find();
+            const {lat, lng, id} = location;
+            userCoord = {
+                lat,
+                lng,
+                id
+            }
+            
+            const nearestShop = helpers.getNearestShop(list, userCoord);
+
+            let userData = await helpers.getUserByJwt(ctx);
+
+            //Comprobar si el ID del usuario y su JWT concuerdan
+             if (!userData.id === id) {
+                 throw new Error('ID del request y del usuario no concuerdan');
+             }
+
+            userData.latlng = `${lat},${lng}`;
+            userData.comercioId = nearestShop.id;
+
+            await User.findOneAndUpdate({_id:userData.id}, { $set: userData },  {new: true} );
+
+            return nearestShop;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
     comercios: async () => {
     try {
        const list = await Comercio.find()
         return list.map(item => {
             return {
                 ...item._doc,
-                _id: item.id}
+                _id: item.id
+            }
         })
     }
     catch (error) {

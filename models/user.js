@@ -28,6 +28,10 @@ const userSchema = new Schema({
     urlPhoto: {
         type: String,
         required: false
+    },
+    comercioId: {
+        type: Number,
+        required: false
     }
 
 }, { timestamps: true })

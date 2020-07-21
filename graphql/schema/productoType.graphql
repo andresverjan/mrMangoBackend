@@ -3,7 +3,8 @@ type Producto {
   id: String!
   name: String!
   img: String!
-  description: String
+  Description: String
+  comercioId: String
 }
 
 input ProductoInput {
@@ -19,6 +20,7 @@ input ProductoInputUpdate {
   name: String!
   img: String!
   description: String
+  comercioId: String
 }
 
 input ProductoInputDelete {

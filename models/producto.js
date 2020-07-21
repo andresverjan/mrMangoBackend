@@ -13,9 +13,13 @@ const productoSchema = new Schema({
         type: String,
         required: true
     },
-    description: {
+    Description: {
         type: String,
         required: false   
+     },
+     comercioId: {
+         type: Number,
+         required: false
      }
 }, { timestamps: true })
 module.exports = mongoose.model('products', productoSchema)

@@ -40,7 +40,7 @@ module.exports = {
 
  updateUser: async args => {
     try {
-      const { _id , name, lastName, phoneNumber, email, latlng, jwt, urlPhoto} = args.user;     
+      const { _id , name, lastName, phoneNumber, email, latlng, jwt, urlPhoto, comercioId} = args.user;
      const userUpdate = {
           _id,
           name,
@@ -49,13 +49,15 @@ module.exports = {
           email,
           latlng,
           jwt,
-          urlPhoto
+          urlPhoto,
+          comercioId
       };
       for(let prop in userUpdate) {
         if(!userUpdate[prop]){
           delete userUpdate[prop];
         }
       }
+      console.log(userUpdate);
       const newUser = await User.findOneAndUpdate({_id:userUpdate._id}, { $set: userUpdate },  {new: true} );
       if (!newUser) {
         throw new Error('User not found');
