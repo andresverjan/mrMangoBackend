@@ -8,6 +8,7 @@ type User {
     latlng: String
     jwt: String
     urlPhoto: String
+    comercioId: String
   }
    
   input UserInput {
@@ -19,18 +20,22 @@ type User {
     createdAt: String
     jwt: String
     urlPhoto: String
+    comercioId: String
   }
+
   input UserInputUpdate {
     _id: ID!
     name: String!
-    lastName: String
     email: String!
+    lastName: String
     phoneNumber: String    
     latlng: String
+    comercioId: String
     createdAt: String
     jwt: String
     urlPhoto: String
   }
+
   input UserInputDelete {
     _id: ID!
   }

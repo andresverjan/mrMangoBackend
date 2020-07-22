@@ -4,6 +4,8 @@ type Comercio {
   name: String!
   location: String!
   description: String
+  lat: String
+  lng: String 
 }
 
 input ComercioInput {
@@ -25,8 +27,15 @@ input ComercioInputDelete {
   _id: ID!
 }
 
+input LocationInput{
+  lat: String!
+  lng: String!
+  id: String!
+}
+
 type Query {
   comercios: [Comercio!]
+  getComercioByLocation (location: LocationInput): Comercio
 }
 
 type Mutation {

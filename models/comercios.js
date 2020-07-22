@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { objectTypeToConfig } = require('graphql-tools');
 const Schema = mongoose.Schema;
 const comercioSchema = new Schema({
     id: {
@@ -15,7 +16,15 @@ const comercioSchema = new Schema({
     },
     description: {
         type: String,
-        required: false   
+        required: false
+     },
+     lat: {
+         type: String,
+         required: false
+     },
+     lng: {
+         type: String,
+         required: false
      }
 }, { timestamps: true })
 module.exports = mongoose.model('comercios', comercioSchema)
