@@ -150,6 +150,29 @@ module.exports = {
         }
     },
 
+    /*createObsChangeStatus {
+        try {
+            const { userId, observ, requestId } = args.request
+            console.group(requestId);
+
+            const request = new Request({
+                userId,
+                createdAt: new Date().toISOString(),
+                observ,
+                status: "4",
+                requestId
+            });
+
+            const newObj = await requestObs.save();
+            console.log(newObj);
+
+            return { ...newObj._doc, _id: newObj.id }
+        }
+        catch (error) {
+            throw error
+        }
+    },*/
+
     updateRequest: async args => {
         try {
             const { _id, requestId, productoId, subproductoId, userId, latlng } = args.request
@@ -183,7 +206,7 @@ module.exports = {
             })
             //const newRequest = await Request.findOneAndUpdate(request._id, request);
             const newRequest = await Request.findOneAndUpdate({_id: { $eq: request._id}}, { $set: request }, { new: true,  upsert: true} );
-
+            
             if (!newRequest) {
                 throw new Error('Request not found');
             }

@@ -34,6 +34,13 @@ input RequestInputDelete {
   _id: ID!
 }
 
+input RequestObsInput {
+  userId: String!
+  createdAt: String
+  observ: String!
+  status: String
+  requestId: ID!
+}
 
 type Query {
   requests: [Request!]
@@ -45,5 +52,5 @@ type Mutation {
   createRequest(request: RequestInput): Request
   updateRequest(request: RequestInputUpdate): Request
   deleteRequest(request: RequestInputDelete): Request
-  cancelRequest(request: RequestInputDelete): Request 
+  cancelRequest(request: RequestObsInput): Request 
 }
