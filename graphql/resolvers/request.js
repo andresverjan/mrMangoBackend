@@ -1,5 +1,6 @@
-const Request = require('../../models/request')
-const RequestDetail = require('../../models/requestdetails')
+const Request = require('../../models/request');
+const RequestDetail = require('../../models/requestdetails');
+const RequestDetailsAdditions = require('../../models/requestDetailsAdditions');
 
 
 module.exports = {
@@ -120,7 +121,6 @@ module.exports = {
     createRequest: async args => {
         try {
             const { userId, latlng, total, details } = args.request
-            console.group(details);
 
             const request = new Request({
                 userId,
@@ -140,9 +140,26 @@ module.exports = {
                     updatedAt: new Date().toISOString()
                 }
             });
-            console.log(newDetail);
-            responseDetails = RequestDetail.insertMany(newDetail);
-            console.log(responseDetails);
+            responseDetails = await RequestDetail.insertMany(newDetail);
+
+            let arrAdditionsPerDetail = [];
+            newDetail.map((item, idx) => {
+                if (item.additions) {
+                    responseDetails.forEach(responseItem => {
+                        if (responseItem.carSubproductoId === item.carSubproductoId) {
+                            newDetail[idx].additions.forEach(addition => {
+                                arrAdditionsPerDetail.push({
+                                    additionId: addition.id,
+                                    requestDetailsId: responseItem._id
+                                });
+                            })
+                        }
+                    });
+                }
+            });
+
+            await RequestDetailsAdditions.insertMany(arrAdditionsPerDetail);
+
             return { ...newObj._doc, _id: newObj.id }
         }
         catch (error) {

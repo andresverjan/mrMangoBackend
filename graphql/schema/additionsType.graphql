@@ -8,6 +8,7 @@ type Additions {
   }
    
   input AdditionsInput {
+    id: String!
    name: String!
     img: String!
     description: String
