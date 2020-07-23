@@ -9,6 +9,7 @@ type RequestDetail {
   createdAt: String
   updatedAt: String
   subproducto: Subproducto
+  additions: [Additions]
 }
 
 
@@ -22,6 +23,7 @@ input RequestDetailInput {
   value: String
   createdAt: String
   updatedAt: String
+  additions: [AdditionsInput]
 }
 
 input RequestDetailInputUpdate {
@@ -36,6 +38,7 @@ input RequestDetailInputUpdate {
   value: String
   createdAt: String
   updatedAt: String
+  additions: [AdditionsInput]
 }
 
 input RequestDetailInputDelete {
