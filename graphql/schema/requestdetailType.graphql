@@ -1,4 +1,4 @@
-type RequestDetailType {
+type RequestDetail {
   _id: ID!
   requestId: ID!
   subproductoId: ID!

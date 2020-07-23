@@ -1,6 +1,6 @@
 const Request = require('../../models/request')
 const RequestDetail = require('../../models/requestdetails')
-
+const RequestObs = require('../../models/requestObs')
 
 module.exports = {
     requests: async args => {
@@ -150,29 +150,6 @@ module.exports = {
         }
     },
 
-    /*createObsChangeStatus {
-        try {
-            const { userId, observ, requestId } = args.request
-            console.group(requestId);
-
-            const request = new Request({
-                userId,
-                createdAt: new Date().toISOString(),
-                observ,
-                status: "4",
-                requestId
-            });
-
-            const newObj = await requestObs.save();
-            console.log(newObj);
-
-            return { ...newObj._doc, _id: newObj.id }
-        }
-        catch (error) {
-            throw error
-        }
-    },*/
-
     updateRequest: async args => {
         try {
             const { _id, requestId, productoId, subproductoId, userId, latlng } = args.request
@@ -198,24 +175,58 @@ module.exports = {
 
     cancelRequest: async args => {
         try {
-            const { _id } = args.request
+            const { userId, observ, requestId } = args.request
             console.log(args);
             const request = new Request({
-                _id: _id,
+                _id: requestId,
+                updatedAt: new Date().toISOString(),
                 status: 4
             })
-            //const newRequest = await Request.findOneAndUpdate(request._id, request);
+            
             const newRequest = await Request.findOneAndUpdate({_id: { $eq: request._id}}, { $set: request }, { new: true,  upsert: true} );
             
+            const requestObs = new RequestObs({
+                requestId: request._id,
+                userId,
+                createdAt: new Date().toISOString(),
+                observ,
+                status: 4
+            });
+
+            const newObj = await requestObs.save();
+
             if (!newRequest) {
                 throw new Error('Request not found');
             }
+
             return { ...newRequest._doc, _id: newRequest.id }
         }
         catch (error) {
             throw error
         }
     },
+
+    /*createObsChangeStatus: async (userId, observ, requestId) => {
+        try {
+//            const { userId, observ, requestId } = args.request
+            console.log(requestId);
+
+            const requestObs = new RequestObs({
+                userId,
+                createdAt: new Date().toISOString(),
+                observ,
+                status: 4,
+                requestId
+            });
+
+            const newObj = await requestObs.save();
+            console.log(newObj);
+//            return { ...newObj._doc, _id: newObj.id }
+        }
+        catch (error) {
+            throw error
+        }
+    },*/
 
     deleteRequest: async args => {
         try {

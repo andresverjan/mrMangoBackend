@@ -6,7 +6,15 @@ type Request {
   updatedAt: String
   status: String
   total: String!
-  details: [RequestDetailType!]
+  details: [RequestDetail!]
+}
+
+type RequestObs {
+  _id: ID!
+  requestId: ID!
+  userId: String!
+  createdAt: String
+  observ: String!
 }
 
 input RequestInput {
@@ -38,7 +46,6 @@ input RequestObsInput {
   userId: String!
   createdAt: String
   observ: String!
-  status: String
   requestId: ID!
 }
 
