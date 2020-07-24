@@ -7,6 +7,7 @@ module.exports = {
         try {
             user = await helpers.getUserByJwt(ctx);
             comercioId = user.comercioId;
+            comercioId = user.comercioId ? user.comercioId : 1;
         } catch (error) {
             comercioId = 1;
         }
