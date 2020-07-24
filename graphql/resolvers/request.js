@@ -73,6 +73,26 @@ module.exports = {
                                             ],
                                             "as": "subproducto"
                                         }
+                                    },
+                                    {
+                                        "$lookup": {
+                                            "from": "requestdetailsadditions",
+                                            "let": { "requestDetails_id": "$_id" },
+                                            "pipeline": [
+                                                { "$match": { "$expr": { "$eq": ["$requestDetailsId", "$$requestDetails_id"] } } },
+                                                {
+                                                    "$lookup": {
+                                                        "from": "additions",
+                                                        "let": { "addition_id": "$additionId" },
+                                                        "pipeline": [
+                                                            { "$match": { "$expr": { "$eq": ["$_id", "$$addition_id"] } } }
+                                                        ],
+                                                        "as": "addon"
+                                                    }
+                                                }
+                                            ],
+                                            "as": "additions"
+                                        }
                                     }
                                 ],
                                 "as": "details"
@@ -85,13 +105,15 @@ module.exports = {
                         }
                     ]);
             console.log("**********************");
-            console.log(joinTable);
+//            console.log(joinTable);
             console.log("**********************");
             //const details = await RequestDetail.find( { requestId: { $eq: requestId}});
             if (!joinTable) {
                 throw new Error('not found');
             }
-            return joinTable.map(item => {
+
+            const jt = 
+             joinTable.map(item => {
                 return {
                     ...item._doc,
                     _id       : item.id, 
@@ -107,11 +129,16 @@ module.exports = {
                             subproductoId : detalle.subproductoId,
                             subproducto   : detalle.subproducto[0],
                             createdAt     : detalle.createdAt ? new Date(detalle.createdAt).toISOString() : new Date().toISOString(),
-                            value         : detalle.value
+                            value         : detalle.value,
+                            additions: detalle.additions.map(adds=> ({...adds}))
                         }
                     })
                 }
             })
+            //Ultimo request, ultimo requestDetail y sus adiciones
+            console.log(jt[jt.length - 1].details[jt[jt.length - 1].details.length - 1].additions)
+
+            return jt
         }
         catch (error) {
             throw error
