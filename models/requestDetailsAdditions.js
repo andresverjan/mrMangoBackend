@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const Schema = mongoose.Schema;
 const requestDetailsAdditionsSchema = new Schema({
    additionId: {
        type: String,
