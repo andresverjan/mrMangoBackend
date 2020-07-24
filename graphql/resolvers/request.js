@@ -53,7 +53,7 @@ module.exports = {
             console.log("argumentos ");
             console.log(args);
             const userId = args.userId;
-            console.log("el  userId es: " + userId);
+            //console.log("el  userId es: " + userId);
 
             const joinTable = await Request
                 .aggregate(
@@ -104,9 +104,9 @@ module.exports = {
                             }
                         }
                     ]);
-            console.log("**********************");
-//            console.log(joinTable);
-            console.log("**********************");
+            //console.log("**********************");
+            //console.log(joinTable);
+            //console.log("**********************");
             //const details = await RequestDetail.find( { requestId: { $eq: requestId}});
             if (!joinTable) {
                 throw new Error('not found');
@@ -130,14 +130,17 @@ module.exports = {
                             subproducto   : detalle.subproducto[0],
                             createdAt     : detalle.createdAt ? new Date(detalle.createdAt).toISOString() : new Date().toISOString(),
                             value         : detalle.value,
-                            additions: detalle.additions.map(adds=> ({...adds}))
+                            additions     : detalle.additions.map(addicion=> { 
+                                return {
+                                    ...addicion.addon[0]
+                                }
+                            })
                         }
                     })
                 }
             })
             //Ultimo request, ultimo requestDetail y sus adiciones
-            console.log(jt[jt.length - 1].details[jt[jt.length - 1].details.length - 1].additions)
-
+            //console.log(jt[jt.length - 1].details[jt[jt.length - 1].details.length - 1].additions)
             return jt
         }
         catch (error) {
