@@ -15,6 +15,7 @@ type Additions {
     description: String
     value: String!
     active: String!
+    checked: Boolean
   }
 
   input AdditionsInputUpdate {
