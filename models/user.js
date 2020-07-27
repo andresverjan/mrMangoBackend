@@ -32,6 +32,10 @@ const userSchema = new Schema({
     comercioId: {
         type: Number,
         required: false
+    },
+    online: {
+        type: Boolean,
+        required: false
     }
 
 }, { timestamps: true })

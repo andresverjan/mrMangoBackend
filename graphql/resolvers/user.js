@@ -1,4 +1,5 @@
 const User = require('../../models/user')
+const helpers = require("../../helpers");
 
 module.exports = {
     users: async () => {
@@ -38,7 +39,7 @@ module.exports = {
   }
  }, 
 
- updateUser: async args => {
+  updateUser: async args => {
     try {
       const { _id , name, lastName, phoneNumber, email, latlng, jwt, urlPhoto, comercioId} = args.user;
      const userUpdate = {
@@ -67,9 +68,29 @@ module.exports = {
     catch (error) {
         throw error
     }
-   } , 
+  }, 
 
-   deleteUser: async args => {
+  logout: async (args, ctx) => {
+    let user;
+    try {
+      user = await helpers.getUserByJwt(ctx);
+      user.jwt = "";
+      user.online = false;
+
+      console.log(user);
+      const newUser = await User.updateOne({_id:user._id}, {$set: user});
+      console.log(newUser);
+      if (!newUser) {
+        throw new Error('User not found');
+      }
+      return "hasta luego" 
+      
+    } catch (error) {
+      throw error;
+    } 
+  },
+
+  deleteUser: async args => {
     try {
       const { _id} = args.user
       console.log(args);
@@ -82,5 +103,5 @@ module.exports = {
     catch (error) {
         throw error
     }
-   }
+  }
 }
