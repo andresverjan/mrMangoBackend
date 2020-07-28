@@ -9,7 +9,7 @@ const requestSchema = new Schema({
         type: String,
         required: false
     },
-    observ: {
+    observation: {
         type: String,
         required: true
     },
