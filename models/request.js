@@ -17,5 +17,10 @@ const requestSchema = new Schema({
         type: String,
         required: true
     },
+    observations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'requestObs',
+        required: false
+    }]
 }, { timestamps: true })
 module.exports = mongoose.model('requests', requestSchema)

@@ -222,31 +222,37 @@ module.exports = {
 
     cancelRequest: async args => {
         try {
-            const { userId, observ, requestId } = args.request
-            console.log(args);
+            const { userId, _id, observations } = args.request
             const request = new Request({
-                _id: requestId,
+                _id: _id,//observations.requestId,
                 updatedAt: new Date().toISOString(),
                 status: 4
-            })
-            
+            });
+            console.log('QUE VIENE AQUÍ: ', _id);
+            console.log('Y QUE ES LO QUE VIENE AQUÍ: ', observations.requestId);
             const newRequest = await Request.findOneAndUpdate({_id: { $eq: request._id}}, { $set: request }, { new: true,  upsert: true} );
-            
+            console.log('Actualizó correctamente: ', newRequest);
             const requestObs = new RequestObs({
                 requestId: request._id,
                 userId,
                 createdAt: new Date().toISOString(),
-                observ,
-                status: 4
+                status: 4,
+                observation: observations.observation
+            });
+            console.log('Observaciones que vienen en el request', observations.observation);
+            const newReqObs = await requestObs.save();
+            console.log('Nuevo requestObs: ', newReqObs);
+            const res = await Request.updateOne({_id: request._id}, {
+                $push: {observations: newReqObs._id}
             });
 
-            const newObj = await requestObs.save();
+            console.log('Respuesta del update: ', res);
 
             if (!newRequest) {
                 throw new Error('Request not found');
             }
 
-            return { ...newRequest._doc, _id: newRequest.id }
+            return { ...newRequest._doc, _id: newRequest._id }
         }
         catch (error) {
             throw error
