@@ -1,0 +1,18 @@
+type Observation {
+    _id: ID!
+    requestId: ID
+    userId: ID
+    observation: String!
+    status: String!
+}
+
+input observationInput{
+    requestId: ID!
+    userId: ID!
+    observation: String!
+    status: String
+}
+
+type Mutation {
+    createObservation(observation: observationInput): Observation
+}

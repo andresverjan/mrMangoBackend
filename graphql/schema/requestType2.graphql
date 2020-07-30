@@ -1,33 +1,41 @@
-type Request {
+type Request2 {
   _id: ID!
   userId: String!
-  latlng: String
   createdAt: String
   updatedAt: String
   status: String
   total: String!
-  details: [RequestDetail!]
-  observations: [RequestObs]
+  details: [RequestDetails2]
+  observations: [RequestObs!]
 }
 
-type RequestObs {
-  _id: ID!
-  requestId: ID!
-  userId: String!
-  createdAt: String
-  observation: String!
-  status: String
+type RequestDetails2 {
+  name: String
+  value: Float!
+  additions: [AdditionDetails]
 }
 
-input RequestInput {
+type AdditionDetails{
+  name: String!
+  value: String!
+}
+
+input AdditionDetailsInput{
+  name: String!
+  value: String!
+}
+
+input RequestInput2 {
   userId: String!
-  latlng: String
-  createdAt: String
-  updatedAt: String
-  status: String
-  total: String
-  details: [RequestDetailInput!]
+  total: String!
+  details: [RequestDetailsInput2!]
   observations: RequestObsInput
+}
+
+input RequestDetailsInput2 {
+  name: String!
+  value: String!
+  additions: [AdditionDetailsInput]
 }
 
 input RequestInputUpdate {
@@ -48,19 +56,18 @@ input RequestInputDelete {
 
 input RequestObsInput {
   userId: String!
-  createdAt: String
   observation: String!
   requestId: ID!
 }
 
 type Query {
   requests: [Request!]
-  #getDetailByRequestId(requestId:String!):[Request!]
-  getMyRequest(userId:String!):[Request!]
+  getDetailByRequestId(requestId:ID!):[RequestDetails2!]
+  getMyRequest(userId:ID!):[Request!]
 }
 
 type Mutation {
-  createRequest(request: RequestInput): Request
+  createRequest2(request: RequestInput2): Request2
   updateRequest(request: RequestInputUpdate): Request
   deleteRequest(request: RequestInputDelete): Request
   cancelRequest(request: RequestInputUpdate): Request 

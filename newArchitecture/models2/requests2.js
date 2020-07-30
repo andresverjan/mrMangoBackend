@@ -14,21 +14,17 @@ const requestSchema2 = new Schema({
         required: true,
         default: 1
     },
-    products: [{
+    details: [{
         name: String,
         value: Number,
-        quantity: Number,
         additions: [{
             name: String,
             value: Number
         }]
     }],
     observations: [{
-        observation: String,
-        author: {
-            type: Schema.Types.ObjectId,
-            ref: 'user'
-        }
+        type: Schema.Types.ObjectId,
+        ref: 'requestObs'
     }]
 }, { timestamps: true })
 module.exports = mongoose.model('requests2', requestSchema2)
