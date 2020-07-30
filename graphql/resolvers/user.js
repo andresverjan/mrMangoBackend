@@ -83,7 +83,7 @@ module.exports = {
       if (!newUser) {
         throw new Error('User not found');
       }
-      return "hasta luego" 
+      return true 
       
     } catch (error) {
       throw error;
