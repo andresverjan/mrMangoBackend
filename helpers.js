@@ -2,8 +2,9 @@ const User = require('./models/user');
 
 const getNearestShop = (arrComercios, userCoord)=>{
     const EARTH_RADIUS = 6371;
-    let neartesComercio = Number.MAX_SAFE_INTEGER;
-    console.log(userCoord);
+    let minDistance = Number.MAX_SAFE_INTEGER;
+    let nearestComercio = arrComercios[0];
+    
     arrComercios.forEach((comercio)=>{
 
         const userLat = userCoord.lat;
@@ -19,9 +20,13 @@ const getNearestShop = (arrComercios, userCoord)=>{
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         const dist = EARTH_RADIUS * c;
 
-        neartesComercio = dist < neartesComercio ? comercio: neartesComercio;
+        if (dist < minDistance) {
+            minDistance = dist;
+            nearestComercio = comercio;
+        }
     });
-    return neartesComercio;
+    
+    return nearestComercio;
 }
 
 const getUserByJwt = async(ctx)=>{
