@@ -17,6 +17,18 @@ const requestSchema = new Schema({
         type: String,
         required: true
     },
+    details: [{
+        subproducto: {
+            type: Schema.Types.ObjectId,
+            ref: 'subproducts'
+        },
+        name: String,
+        value: Number,
+        additions: [{
+            name: String,
+            value: Number
+        }]
+    }],
     observations: [{
         type: Schema.Types.ObjectId,
         ref: 'requestObs',

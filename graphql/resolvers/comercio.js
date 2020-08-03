@@ -15,7 +15,7 @@ module.exports = {
             }
             
             const nearestShop = helpers.getNearestShop(list, userCoord);
-
+            console.log(nearestShop);
             let userData = await helpers.getUserByJwt(ctx);
 
             //Comprobar si el ID del usuario y su JWT concuerdan
