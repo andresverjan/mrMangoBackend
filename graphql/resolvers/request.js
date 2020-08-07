@@ -179,7 +179,7 @@ module.exports = {
         }
     },*/
 
-    createRequest2: async (args) => {
+    createRequest: async (args) => {
         try {
             const requestInfo = args.request,
                 request = await Request.create({
