@@ -9,6 +9,15 @@ type Request {
   observations: [RequestObs!]
 }
 
+type RequestObs {
+  _id: ID!
+  requestId: ID!
+  userId: String!
+  createdAt: String
+  observation: String!
+  status: String
+}
+
 type RequestDetails {
   name: String
   value: Float!
@@ -83,15 +92,6 @@ type Mutation {
 #   total: String!
 #   details: [RequestDetail!]
 #   observations: [RequestObs]
-# }
-
-# type RequestObs {
-#   _id: ID!
-#   requestId: ID!
-#   userId: String!
-#   createdAt: String
-#   observation: String!
-#   status: String
 # }
 
 # input RequestInput {
