@@ -3,7 +3,7 @@ const RequestObs = require('../../models/requestObs');
 
 module.exports = {
 
-    requests: async (args) => {
+    /*requests: async (args) => {
         try {
             const requestList = Request.find().populate({path: 'observations', populate: 'observations'});
 
@@ -11,8 +11,8 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-    },
-    /*requests: async args => {
+    },*/
+    requests: async args => {
         try {
             const listado = await Request.find()
             return listado.map(item => {
@@ -28,9 +28,9 @@ module.exports = {
         catch (error) {
             throw error
         }
-    },*/
+    },
 
-    getDetailByRequestId: async (args) => {
+    /*getDetailByRequestId: async (args) => {
         try {
             const { requestId }= args;
             request = await Request.findOne({ _id: requestId });
@@ -39,9 +39,9 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-    },
+    },*/
 
-/*getDetailByRequestId: async args => {
+getDetailByRequestId: async args => {
         try {
             console.log("argumentos ");
             console.log(args);
@@ -65,11 +65,11 @@ module.exports = {
         catch (error) {
             throw error
         }
-    },*/
+    },
 
     //TODO Te mando un abrazito a la distancia cosa
 
-    getMyRequest: async (args) => {
+    /*getMyRequest: async (args) => {
         try {
             const { userId } = args,
             requestList = await Request.find({ userId });
@@ -78,8 +78,8 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-    },
-    /*getMyRequest: async args => {
+    },*/
+    getMyRequest: async args => {
         try {
             console.log("argumentos ");
             console.log(args);
@@ -177,9 +177,9 @@ module.exports = {
         catch (error) {
             throw error
         }
-    },*/
+    },
 
-    createRequest: async (args) => {
+    /*createRequest: async (args) => {
         try {
             const requestInfo = args.request,
                 request = await Request.create({
@@ -193,8 +193,8 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-    },
-    /*createRequest: async args => {
+    },*/
+    createRequest: async args => {
         try {
             const { userId, latlng, total, details } = args.request
 
@@ -241,7 +241,7 @@ module.exports = {
         catch (error) {
             throw error
         }
-    },*/
+    },
 
     updateRequest: async args => {
         try {
