@@ -1,8 +1,9 @@
-const Request = require('../../models/request');
-const RequestObs = require('../../models/requestObs');
+const Request = require("../../models/request");
+const RequestDetail = require('../../models/requestdetails');
+const RequestDetailsAdditions = require('../../models/requestDetailsAdditions');
+const RequestObs = require("../../models/requestObs");
 
 module.exports = {
-
     /*requests: async (args) => {
         try {
             const requestList = Request.find().populate({path: 'observations', populate: 'observations'});
@@ -12,21 +13,24 @@ module.exports = {
             throw error;
         }
     },*/
-    requests: async args => {
+    requests: async (args) => {
         try {
-            const listado = await Request.find()
-            return listado.map(item => {
+            const listado = await Request.find();
+            return listado.map((item) => {
                 return {
                     ...item._doc,
-                    _id       : item.id,
-                    createdAt : item._doc.createdAt ? new Date(item._doc.createdAt).toISOString() : new Date().toISOString(),
-                    updatedAt : item._doc.updatedAt ? new Date(item._doc.updatedAt).toISOString() : new Date().toISOString(),
-                    status    : item.status ? item.status : "1",
-                }
-            })
-        }
-        catch (error) {
-            throw error
+                    _id: item.id,
+                    createdAt: item._doc.createdAt
+                        ? new Date(item._doc.createdAt).toISOString()
+                        : new Date().toISOString(),
+                    updatedAt: item._doc.updatedAt
+                        ? new Date(item._doc.updatedAt).toISOString()
+                        : new Date().toISOString(),
+                    status: item.status ? item.status : "1",
+                };
+            });
+        } catch (error) {
+            throw error;
         }
     },
 
@@ -41,29 +45,34 @@ module.exports = {
         }
     },*/
 
-getDetailByRequestId: async args => {
+    getDetailByRequestId: async (args) => {
         try {
             console.log("argumentos ");
             console.log(args);
             const requestId = args.requestId;
             console.log("el  valor es: " + requestId);
             const list = await Request.find({ _id: { $eq: requestId } });
-            const details = await RequestDetail.find({ requestId: { $eq: requestId } });
+            const details = await RequestDetail.find({
+                requestId: { $eq: requestId },
+            });
             if (!list) {
-                throw new Error('not found');
+                throw new Error("not found");
             }
-            return list.map(item => {
+            return list.map((item) => {
                 return {
                     ...item._doc,
                     _id: item.id,
                     details: details,
-                    createdAt: item._doc.createdAt ? new Date(item._doc.createdAt).toISOString() : new Date().toISOString(),
-                    updatedAt: item._doc.updatedAt ? new Date(item._doc.updatedAt).toISOString() : new Date().toISOString()
-                }
-            })
-        }
-        catch (error) {
-            throw error
+                    createdAt: item._doc.createdAt
+                        ? new Date(item._doc.createdAt).toISOString()
+                        : new Date().toISOString(),
+                    updatedAt: item._doc.updatedAt
+                        ? new Date(item._doc.updatedAt).toISOString()
+                        : new Date().toISOString(),
+                };
+            });
+        } catch (error) {
+            throw error;
         }
     },
 
@@ -79,103 +88,138 @@ getDetailByRequestId: async args => {
             throw error;
         }
     },*/
-    getMyRequest: async args => {
+    getMyRequest: async (args) => {
         try {
             console.log("argumentos ");
             console.log(args);
             const userId = args.userId;
             //console.log("el  userId es: " + userId);
 
-            const joinTable = await Request
-                .aggregate(
-                    [
-                        {
-                            "$lookup": {
-                                "from": "requestdetails",
-                                "let": { "request_id": "$_id" },
-                                "pipeline": [
-                                    { "$match": { "$expr": { "$eq": ["$requestId", "$$request_id"] } } },
-                                    {
-                                        "$lookup": {
-                                            "from": "subproducts",
-                                            "let": { "subproducto_id": "$subproductoId" },
-                                            "pipeline": [
-                                                { "$match": { "$expr": { "$eq": ["$_id", "$$subproducto_id"] } } }
-                                            ],
-                                            "as": "subproducto"
-                                        }
+            const joinTable = await Request.aggregate([
+                {
+                    $lookup: {
+                        from: "requestdetails",
+                        let: { request_id: "$_id" },
+                        pipeline: [
+                            {
+                                $match: {
+                                    $expr: {
+                                        $eq: ["$requestId", "$$request_id"],
                                     },
-                                    {
-                                        "$lookup": {
-                                            "from": "requestdetailsadditions",
-                                            "let": { "requestDetails_id": "$_id" },
-                                            "pipeline": [
-                                                { "$match": { "$expr": { "$eq": ["$requestDetailsId", "$$requestDetails_id"] } } },
-                                                {
-                                                    "$lookup": {
-                                                        "from": "additions",
-                                                        "let": { "addition_id": "$additionId" },
-                                                        "pipeline": [
-                                                            { "$match": { "$expr": { "$eq": ["$_id", "$$addition_id"] } } }
-                                                        ],
-                                                        "as": "addon"
-                                                    }
-                                                }
-                                            ],
-                                            "as": "additions"
-                                        }
-                                    }
-                                ],
-                                "as": "details"
-                            }
-                        },
-                        {
-                            "$match": {
-                                "userId": userId
-                            }
-                        }
-                    ]);
+                                },
+                            },
+                            {
+                                $lookup: {
+                                    from: "subproducts",
+                                    let: { subproducto_id: "$subproductoId" },
+                                    pipeline: [
+                                        {
+                                            $match: {
+                                                $expr: {
+                                                    $eq: [
+                                                        "$_id",
+                                                        "$$subproducto_id",
+                                                    ],
+                                                },
+                                            },
+                                        },
+                                    ],
+                                    as: "subproducto",
+                                },
+                            },
+                            {
+                                $lookup: {
+                                    from: "requestdetailsadditions",
+                                    let: { requestDetails_id: "$_id" },
+                                    pipeline: [
+                                        {
+                                            $match: {
+                                                $expr: {
+                                                    $eq: [
+                                                        "$requestDetailsId",
+                                                        "$$requestDetails_id",
+                                                    ],
+                                                },
+                                            },
+                                        },
+                                        {
+                                            $lookup: {
+                                                from: "additions",
+                                                let: {
+                                                    addition_id: "$additionId",
+                                                },
+                                                pipeline: [
+                                                    {
+                                                        $match: {
+                                                            $expr: {
+                                                                $eq: [
+                                                                    "$_id",
+                                                                    "$$addition_id",
+                                                                ],
+                                                            },
+                                                        },
+                                                    },
+                                                ],
+                                                as: "addon",
+                                            },
+                                        },
+                                    ],
+                                    as: "additions",
+                                },
+                            },
+                        ],
+                        as: "details",
+                    },
+                },
+                {
+                    $match: {
+                        userId: userId,
+                    },
+                },
+            ]);
             //console.log("**********************");
             //console.log(joinTable);
             //console.log("**********************");
             //const details = await RequestDetail.find( { requestId: { $eq: requestId}});
             if (!joinTable) {
-                throw new Error('not found');
+                throw new Error("not found");
             }
 
-            const jt = 
-             joinTable.map(item => {
+            const jt = joinTable.map((item) => {
                 return {
                     ...item._doc,
-                    _id       : item.id, 
-                    userId    : item.userId,
-                    total     : item.total,
-                    status    : item.status ? item.status : "1",
-                    createdAt: item.createdAt ? new Date(item.createdAt).toISOString() : new Date().toISOString(),                    
-                    details: item.details.map(detalle=> {
-                        return  {                             
+                    _id: item.id,
+                    userId: item.userId,
+                    total: item.total,
+                    status: item.status ? item.status : "1",
+                    createdAt: item.createdAt
+                        ? new Date(item.createdAt).toISOString()
+                        : new Date().toISOString(),
+                    details: item.details.map((detalle) => {
+                        return {
                             ...detalle.doc,
-                            _id           : detalle.id,
-                            requestId     : detalle.requestId,                            
-                            subproductoId : detalle.subproductoId,
-                            subproducto   : detalle.subproducto[0],
-                            createdAt     : detalle.createdAt ? new Date(detalle.createdAt).toISOString() : new Date().toISOString(),
-                            value         : detalle.value,
-                            additions     : detalle.additions.map(addicion=> { 
+                            _id: detalle.id,
+                            requestId: detalle.requestId,
+                            subproductoId: detalle.subproductoId,
+                            subproducto: detalle.subproducto[0],
+                            createdAt: detalle.createdAt
+                                ? new Date(detalle.createdAt).toISOString()
+                                : new Date().toISOString(),
+                            value: detalle.value,
+                            additions: detalle.additions.map((addicion) => {
                                 return {
-                                    ...addicion.addon[0]
-                                }
-                            })
-                        }
-                    })
-                }
-            })
+                                    ...addicion.addon[0],
+                                };
+                            }),
+                        };
+                    }),
+                };
+            });
             //Ultimo request, ultimo requestDetail y sus adiciones
             //console.log(jt[jt.length - 1].details[jt[jt.length - 1].details.length - 1].additions)
-            return jt
-        }
-        catch (error) {
-            throw error
+            return jt;
+        } catch (error) {
+            throw error;
         }
     },
 
@@ -194,9 +238,9 @@ getDetailByRequestId: async args => {
             throw error;
         }
     },*/
-    createRequest: async args => {
+    createRequest: async (args) => {
         try {
-            const { userId, latlng, total, details } = args.request
+            const { userId, latlng, total, details } = args.request;
 
             const request = new Request({
                 userId,
@@ -204,31 +248,34 @@ getDetailByRequestId: async args => {
                 total,
                 status: "1",
                 createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
+                updatedAt: new Date().toISOString(),
             });
 
             const newObj = await request.save();
-            let newDetail = details.map(addition => {
+            let newDetail = details.map((addition) => {
                 return {
                     ...addition,
                     requestId: newObj._id,
                     createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString()
-                }
+                    updatedAt: new Date().toISOString(),
+                };
             });
             responseDetails = await RequestDetail.insertMany(newDetail);
 
             let arrAdditionsPerDetail = [];
             newDetail.map((item, idx) => {
                 if (item.additions) {
-                    responseDetails.forEach(responseItem => {
-                        if (responseItem.carSubproductoId === item.carSubproductoId) {
-                            newDetail[idx].additions.forEach(addition => {
+                    responseDetails.forEach((responseItem) => {
+                        if (
+                            responseItem.carSubproductoId ===
+                            item.carSubproductoId
+                        ) {
+                            newDetail[idx].additions.forEach((addition) => {
                                 arrAdditionsPerDetail.push({
                                     additionId: addition.id,
-                                    requestDetailsId: responseItem._id
+                                    requestDetailsId: responseItem._id,
                                 });
-                            })
+                            });
                         }
                     });
                 }
@@ -236,16 +283,22 @@ getDetailByRequestId: async args => {
 
             await RequestDetailsAdditions.insertMany(arrAdditionsPerDetail);
 
-            return { ...newObj._doc, _id: newObj.id }
-        }
-        catch (error) {
-            throw error
+            return { ...newObj._doc, _id: newObj.id };
+        } catch (error) {
+            throw error;
         }
     },
 
-    updateRequest: async args => {
+    updateRequest: async (args) => {
         try {
-            const { _id, requestId, productoId, subproductoId, userId, latlng } = args.request
+            const {
+                _id,
+                requestId,
+                productoId,
+                subproductoId,
+                userId,
+                latlng,
+            } = args.request;
             const request = new Request({
                 _id,
                 requestId,
@@ -253,55 +306,66 @@ getDetailByRequestId: async args => {
                 subproductoId,
                 userId,
                 latlng,
-                updatedAt: new Date().toISOString()
-            })
-            const newRequest = await Request.findOneAndUpdate(request._id, request);
+                updatedAt: new Date().toISOString(),
+            });
+            const newRequest = await Request.findOneAndUpdate(
+                request._id,
+                request
+            );
             if (!newRequest) {
-                throw new Error('Request not found');
+                throw new Error("Request not found");
             }
-            return { ...newRequest._doc, _id: newRequest.id }
-        }
-        catch (error) {
-            throw error
+            return { ...newRequest._doc, _id: newRequest.id };
+        } catch (error) {
+            throw error;
         }
     },
 
-    cancelRequest: async args => {
+    cancelRequest: async (args) => {
         try {
-            const { userId, _id, observations } = args.request
+            const { userId, _id, observations } = args.request;
             const request = new Request({
-                _id: _id,//observations.requestId,
+                _id: _id, //observations.requestId,
                 updatedAt: new Date().toISOString(),
-                status: 4
+                status: 4,
             });
-            console.log('QUE VIENE AQUÍ: ', _id);
-            console.log('Y QUE ES LO QUE VIENE AQUÍ: ', observations.requestId);
-            const newRequest = await Request.findOneAndUpdate({_id: { $eq: request._id}}, { $set: request }, { new: true,  upsert: true} );
-            console.log('Actualizó correctamente: ', newRequest);
+            console.log("QUE VIENE AQUÍ: ", _id);
+            console.log("Y QUE ES LO QUE VIENE AQUÍ: ", observations.requestId);
+            const newRequest = await Request.findOneAndUpdate(
+                { _id: { $eq: request._id } },
+                { $set: request },
+                { new: true, upsert: true }
+            );
+            console.log("Actualizó correctamente: ", newRequest);
             const requestObs = new RequestObs({
                 requestId: request._id,
                 userId,
                 createdAt: new Date().toISOString(),
                 status: 4,
-                observation: observations.observation
+                observation: observations.observation,
             });
-            console.log('Observaciones que vienen en el request', observations.observation);
+            console.log(
+                "Observaciones que vienen en el request",
+                observations.observation
+            );
             const newReqObs = await requestObs.save();
-            console.log('Nuevo requestObs: ', newReqObs);
-            const res = await Request.updateOne({_id: request._id}, {
-                $push: {observations: newReqObs._id}
-            });
+            console.log("Nuevo requestObs: ", newReqObs);
+            const res = await Request.updateOne(
+                { _id: request._id },
+                {
+                    $push: { observations: newReqObs._id },
+                }
+            );
 
-            console.log('Respuesta del update: ', res);
+            console.log("Respuesta del update: ", res);
 
             if (!newRequest) {
-                throw new Error('Request not found');
+                throw new Error("Request not found");
             }
 
-            return { ...newRequest._doc, _id: newRequest._id }
-        }
-        catch (error) {
-            throw error
+            return { ...newRequest._doc, _id: newRequest._id };
+        } catch (error) {
+            throw error;
         }
     },
 
@@ -327,19 +391,17 @@ getDetailByRequestId: async args => {
         }
     },*/
 
-    deleteRequest: async args => {
+    deleteRequest: async (args) => {
         try {
-            const { _id } = args.request
+            const { _id } = args.request;
             console.log(args);
             const request = new Request({
-                _id: _id
-            })
+                _id: _id,
+            });
             const newRequest = await request.deleteOne(request._id);
-            return { ...newRequest._doc, _id: newRequest.id }
-        }
-        catch (error) {
-            throw error
+            return { ...newRequest._doc, _id: newRequest.id };
+        } catch (error) {
+            throw error;
         }
     },
-
-}
+};
