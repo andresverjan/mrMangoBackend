@@ -36,7 +36,18 @@ const userSchema = new Schema({
     online: {
         type: Boolean,
         required: false
+    },
+    rol_id: {
+        type: Number,
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
     }
-
 }, { timestamps: true })
 module.exports = mongoose.model('User', userSchema)

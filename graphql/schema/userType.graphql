@@ -10,6 +10,9 @@ type User {
     urlPhoto: String
     comercioId: String
     online: Boolean
+    rol_id: String!
+    username: String
+    password: String
   }
    
   input UserInput {
@@ -23,6 +26,9 @@ type User {
     urlPhoto: String
     comercioId: String
     online: Boolean
+    rol_id: String!
+    username: String
+    password: String
   }
 
   input UserInputUpdate {
@@ -37,10 +43,18 @@ type User {
     jwt: String
     urlPhoto: String
     online: Boolean
+    rol_id: String!
+    username: String
+    password: String
   }
 
   input UserInputDelete {
     _id: ID!
+  }
+
+  input UserLogin {
+    username: String
+    password: String
   }
 
   type Query {
@@ -52,4 +66,5 @@ type User {
     updateUser(user:UserInputUpdate): User
     deleteUser(user:UserInputDelete): User
     logout: Boolean
+    login(login:UserLogin): Boolean
   }

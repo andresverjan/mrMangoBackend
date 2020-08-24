@@ -68,7 +68,32 @@ module.exports = {
     catch (error) {
         throw error
     }
-  }, 
+  },
+  
+  login: async args => {
+    try {
+      const { username, password } = args.login;
+      const user = await User.findOne({username});
+      
+      if (!user) {
+        throw new Error('Invalid User');
+      }
+      else if (user.password === password) {
+        console.log("Entro...", (user.password == password));
+        user.online = true;
+        await User.findOneAndUpdate({_id:user._id}, { $set: user }, {new: true});
+      }
+      else {
+        console.log("No Entro...");
+        throw new Error('Invalid password');
+      }
+
+      return true
+    }
+    catch (error) {
+        throw error
+    }
+  },
 
   logout: async (args, ctx) => {
     let user;
