@@ -1,4 +1,5 @@
 const RequestObs = require("../../models/requestObs");
+const Request = require("../../models/request");
 
 module.exports = {
     createObservation: async (args) => {
@@ -14,7 +15,6 @@ module.exports = {
                     $push: { observations: newObservation._id },
                 }
             );
-
             return newObservation;
         } catch (error) {
             throw error;

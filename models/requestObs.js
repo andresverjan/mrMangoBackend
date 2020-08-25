@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const requestObsSchema = new Schema({  
     requestId: {
         type: mongoose.Schema.ObjectId,
-        ref: 'requests2',
+        ref: 'requests',
         required: true
     },
     userId: {
@@ -16,7 +16,8 @@ const requestObsSchema = new Schema({
     },
     status: {
         type: String,
-        required: true
-    },
+        required: true,
+        default: 0
+    }
 }, { timestamps: true })
 module.exports = mongoose.model('requestObs', requestObsSchema)

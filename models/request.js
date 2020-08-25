@@ -25,6 +25,10 @@ const requestSchema = new Schema({
         name: String,
         value: Number,
         additions: [{
+            adittion: {
+                type: Schema.Types.ObjectId,
+                ref: 'additions'
+            },
             name: String,
             value: Number
         }]
