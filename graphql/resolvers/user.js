@@ -19,7 +19,7 @@ module.exports = {
 
   createUser: async args => {
   try {
-    const { name, lastName, phoneNumber, email, latlng, jwt, urlPhoto } = args.user    
+    const { name, lastName, phoneNumber, email, latlng, jwt, urlPhoto, rol_id, username,  password} = args.user    
     const user  = {
         name,
         lastName,
@@ -28,6 +28,9 @@ module.exports = {
         latlng,
         jwt,
         urlPhoto,
+        rol_id,
+        username,
+        password,
         createdAt: new Date()
     };
 
@@ -41,7 +44,7 @@ module.exports = {
 
   updateUser: async args => {
     try {
-      const { _id , name, lastName, phoneNumber, email, latlng, jwt, urlPhoto, comercioId} = args.user;
+      const { _id , name, lastName, phoneNumber, email, latlng, jwt, urlPhoto, comercioId, rol_id, username,  password} = args.user;
      const userUpdate = {
           _id,
           name,
@@ -51,7 +54,10 @@ module.exports = {
           latlng,
           jwt,
           urlPhoto,
-          comercioId
+          comercioId,
+          rol_id, 
+          username, 
+          password
       };
       for(let prop in userUpdate) {
         if(!userUpdate[prop]){
