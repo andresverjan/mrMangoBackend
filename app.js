@@ -11,11 +11,9 @@ const {
 
 const schema = buildSchema(types);
 var app = Express();
-//Mongoose.connect("mongodb://mrmango:mrmango123456@ds255740.mlab.com:55740/heroku_gvmzwz8n", { useNewUrlParser: true });  
+Mongoose.connect("mongodb://mrmango:mrmango123456@ds255740.mlab.com:55740/heroku_gvmzwz8n", { useNewUrlParser: true });  
 //Mongoose.connect("mongodb://mrmango:mrmango123456@ds255740.mlab.com:55740/heroku_gvmzwz8n", { useNewUrlParser: true });  
 //Mongoose.connect("mongodb://localhost:27017/heroku_gvmzwz8n", { useNewUrlParser: true });
-Mongoose.connect("mongodb+srv://mrmango:mrmango123456@cluster0.3hvur.mongodb.net/test" , { useNewUrlParser: true }); 
-
 app.use('*', cors());
 app.use("/graphql", ExpressGraphQL({
     schema:    schema,
