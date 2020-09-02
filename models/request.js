@@ -22,7 +22,7 @@ const requestSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'subproducts'
         },
-        name: String,
+//        name: String,
         value: Number,
         additions: [{
             adittion: {

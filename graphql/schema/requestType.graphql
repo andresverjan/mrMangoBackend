@@ -45,7 +45,6 @@ input AdditionDetailsInput{
 }
 input RequestDetailsInput2 {
   subproductoId: ID
-  name: String!
   value: String!
   additions: [AdditionDetailsInput]
 }
