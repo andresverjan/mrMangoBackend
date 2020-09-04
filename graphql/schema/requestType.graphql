@@ -1,4 +1,3 @@
-
 type Request {
   _id: ID!
   userId: String!
@@ -16,7 +15,6 @@ type RequestDetails {
   additions: [AdditionDetails]
   observations: [RequestObs!]
 }
-
 type RequestObs {
   _id: ID
   requestId: ID
@@ -25,13 +23,16 @@ type RequestObs {
   observation: String!
   status: String
 }
-
 type AdditionDetails{
   id: ID
   name: String!
   value: String!
 }
-
+input inputAdditionDetails{
+  id: ID
+  name: String!
+  value: String!
+}
 input RequestInput {
   userId: String!
   total: String!
@@ -46,7 +47,7 @@ input RequestInput {
 input RequestDetailsInput2 {
   subproductoId: ID
   value: String!
-  additions: [AdditionDetails]
+  additions: [inputAdditionDetails]
 }
 
 input RequestInputUpdate {
@@ -81,62 +82,3 @@ type Mutation {
   deleteRequest(request: RequestInputDelete): Request
   cancelRequest(request: RequestInputUpdate): Request 
 }
-
-
-# type Request {
-#   _id: ID!
-#   userId: String!
-#   latlng: String
-#   createdAt: String
-#   updatedAt: String
-#   status: String
-#   total: String!
-#   details: [RequestDetail!]
-#   observations: [RequestObs]
-# }
-# input RequestInput {
-#   userId: String!
-#   latlng: String
-#   createdAt: String
-#   updatedAt: String
-#   status: String
-#   total: String
-#   details: [RequestDetailInput!]
-#   observations: RequestObsInput
-# }
-# input RequestInputUpdate {
-#   _id: ID!
-#   userId: String!
-#   latlng: String
-#   createdAt: String
-#   updatedAt: String
-#   status: String
-#   total: String!
-#   details: [RequestDetailInputUpdate!]
-#   observations: RequestObsInput
-# }
-# input RequestInputDelete {
-#   _id: ID!
-# }
-
-
-# type RequestObs {
-#   _id: ID!
-#   requestId: ID!
-#   userId: String!
-#   createdAt: String
-#   observation: String!
-#   status: String
-# }
-
-# type Query {
-#   requests: [Request!]
-#   getDetailByRequestId(requestId:String!):[Request!]
-#   getMyRequest(userId:String!):[Request!]
-# }
-# type Mutation {
-#   createRequest(request: RequestInput): Request
-#   updateRequest(request: RequestInputUpdate): Request
-#   deleteRequest(request: RequestInputDelete): Request
-#   cancelRequest(request: RequestInputUpdate): Request 
-# }
