@@ -40,7 +40,7 @@ input RequestInput {
 
 input AdditionDetailsInput{
   addition: ID
-  name: String!
+  name: String
   value: String!
 }
 input RequestDetailsInput2 {

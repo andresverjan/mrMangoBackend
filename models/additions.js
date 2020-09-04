@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const additionsSchema = new Schema({
    name: {
         type: String,
-        required: true
+        required: false
     },
     img: {
         type: String,
