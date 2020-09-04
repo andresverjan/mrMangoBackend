@@ -37,7 +37,7 @@ input RequestInput {
 }
 
 input AdditionDetailsInput{
-  id: ID
+  addition: ID
   name: String
   value: String!
 }
@@ -81,61 +81,3 @@ type Mutation {
   cancelRequest(request: RequestInputUpdate): Request 
 }
 
-
-# type Request {
-#   _id: ID!
-#   userId: String!
-#   latlng: String
-#   createdAt: String
-#   updatedAt: String
-#   status: String
-#   total: String!
-#   details: [RequestDetail!]
-#   observations: [RequestObs]
-# }
-# input RequestInput {
-#   userId: String!
-#   latlng: String
-#   createdAt: String
-#   updatedAt: String
-#   status: String
-#   total: String
-#   details: [RequestDetailInput!]
-#   observations: RequestObsInput
-# }
-# input RequestInputUpdate {
-#   _id: ID!
-#   userId: String!
-#   latlng: String
-#   createdAt: String
-#   updatedAt: String
-#   status: String
-#   total: String!
-#   details: [RequestDetailInputUpdate!]
-#   observations: RequestObsInput
-# }
-# input RequestInputDelete {
-#   _id: ID!
-# }
-
-
-# type RequestObs {
-#   _id: ID!
-#   requestId: ID!
-#   userId: String!
-#   createdAt: String
-#   observation: String!
-#   status: String
-# }
-
-# type Query {
-#   requests: [Request!]
-#   getDetailByRequestId(requestId:String!):[Request!]
-#   getMyRequest(userId:String!):[Request!]
-# }
-# type Mutation {
-#   createRequest(request: RequestInput): Request
-#   updateRequest(request: RequestInputUpdate): Request
-#   deleteRequest(request: RequestInputDelete): Request
-#   cancelRequest(request: RequestInputUpdate): Request 
-# }
