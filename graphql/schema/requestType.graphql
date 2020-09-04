@@ -38,15 +38,15 @@ input RequestInput {
   details: [RequestDetailsInput2!]
 }
 
-input AdditionDetailsInput{
-  addition: ID
-  name: String
-  value: String!
-}
+#input AdditionDetailsInput{
+#  addition: ID
+#  name: String
+#  value: String!
+#}
 input RequestDetailsInput2 {
   subproductoId: ID
   value: String!
-  additions: [AdditionDetailsInput]
+  additions: [AdditionDetails]
 }
 
 input RequestInputUpdate {
