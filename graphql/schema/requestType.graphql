@@ -29,6 +29,7 @@ type AdditionDetails{
   id: ID
   name: String!
   value: String!
+  img: String
 }
 input RequestInput {
   userId: String!
