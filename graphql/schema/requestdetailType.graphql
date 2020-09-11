@@ -1,31 +1,3 @@
-# type RequestDetail {
-#   _id: ID!
-#   requestId: ID!
-#   subproductoId: ID!
-#   carSubproductoId: String
-#   latlng: String
-#   name: String
-#   value: String
-#   createdAt: String
-#   updatedAt: String
-#   subproducto: Subproducto
-#   additions: [Additions]
-# }
-
-
-# input RequestDetailInput {
-#   _id: ID
-#   requestId: ID
-#   subproductoId: String!
-#   carSubproductoId: String
-#   latlng: String
-#   name: String
-#   value: String
-#   createdAt: String
-#   updatedAt: String
-#   additions: [AdditionsInput]
-# }
-
 input RequestDetailInputUpdate {
   _id: ID!
   requestId: ID

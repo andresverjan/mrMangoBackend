@@ -22,14 +22,12 @@ const requestSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'subproducts'
         },
-//        name: String,
         value: Number,
         additions: [{
             addition: {
                 type: Schema.Types.ObjectId,
                 ref: 'additions'
             },
-            name: String,
             value: Number
         }]
     }],
