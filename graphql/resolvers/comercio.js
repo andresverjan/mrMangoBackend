@@ -51,9 +51,10 @@ module.exports = {
 
   createComercio: async args => {
   try {
-    const { name, location,  description  } = args.comercio
+    const { id, name, location,  description  } = args.comercio
     console.log(args);
     const item = new Comercio({
+        id,
         name,
         location,
         description
