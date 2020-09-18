@@ -9,7 +9,7 @@ type Comercio {
 }
 
 input ComercioInput {
-  id: String!
+  id: String
   name: String!
   location: String!
   description: String
