@@ -13,6 +13,8 @@ input ComercioInput {
   name: String!
   location: String!
   description: String
+  lat: String
+  lng: String 
 }
 
 input ComercioInputUpdate {
@@ -21,6 +23,8 @@ input ComercioInputUpdate {
   name: String!
   location: String!
   description: String
+  lat: String
+  lng: String 
 }
 
 input ComercioInputDelete {
@@ -39,7 +43,7 @@ type Query {
 }
 
 type Mutation {
-  createComercio(user: ComercioInput): Comercio
-  updateComercio(user: ComercioInputUpdate): Comercio
-  deleteComercio(user: ComercioInputDelete): Comercio
+  createComercio(comercio: ComercioInput): Comercio
+  updateComercio(comercio: ComercioInputUpdate): Comercio
+  deleteComercio(comercio: ComercioInputDelete): Comercio
 }
