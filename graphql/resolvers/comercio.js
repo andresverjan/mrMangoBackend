@@ -51,7 +51,7 @@ module.exports = {
 
   createComercio: async args => {
   try {
-    const { name, location,  description  } = args.user
+    const { name, location,  description  } = args.comercio
     console.log(args);
     const item = new Comercio({
         name,
