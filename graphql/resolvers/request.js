@@ -1,49 +1,49 @@
+
 const Request = require("../../models/request");
 const RequestDetail = require('../../models/requestdetails');
 const RequestDetailsAdditions = require('../../models/requestDetailsAdditions');
 const RequestObs = require("../../models/requestObs");
 const Subproducts = require("../../models/subproducts");
 
-
-
 module.exports = {
     requests: async (args) => {
         try {
-        const requestList = Request.find()
-                            .populate({path: 'details.subproducto',  model: 'subproducts' })
-                            .populate({path: 'details.additions.addition'});
-                            //.populate({path: 'details', populate:  { path: 'additions', populate:  { path: 'addition' }   }});
-        return requestList;
+            const requestList = Request.find()
+                .populate({ path: 'details.subproducto', model: 'subproducts' })
+                .populate({ path: 'details.additions.addition' });
+            //.populate({path: 'details', populate:  { path: 'additions', populate:  { path: 'addition' }   }});    
+            return requestList;
         } catch (error) {
             throw error;
         }
-    }, 
+    },
 
     getDetailByRequestId: async (args) => {
         try {
-            const { requestId }= args;
-            request = await Request.findOne({ _id: requestId }).populate({path: 'observations', populate: 'oservations'});
-            
+            const { requestId } = args;
+            request = await Request.findOne({ _id: requestId }).populate({ path: 'observations', populate: 'oservations' });
+
             return request;
         } catch (error) {
             throw error;
         }
-    },    
+    },
 
     getMyRequest: async (args) => {
         try {
             const { userId } = args,
                 requestList = await Request.find({ userId })
-                                    .populate({path: 'details.subproducto',  model: 'subproducts' })
-                                    .populate({path: 'details.additions.addition'});
+                    .populate({ path: 'details.subproducto', model: 'subproducts' })
+                    .populate({ path: 'details.additions.addition' });
             return requestList;
         } catch (error) {
             throw error;
         }
-    }, 
+    },
 
     createRequest: async (args) => {
         try {
+            //const currentDate =  helpers.getCurrentDateTime();
             const requestInfo = args.request,
                 request = await Request.create({
                     ...requestInfo,
@@ -51,13 +51,12 @@ module.exports = {
                     createdAt: new Date().toISOString(),
                     updatedAt: new Date().toISOString(),
                 });
-
             return request;
         } catch (error) {
             throw error;
         }
     },
-    
+
     updateRequest: async (args) => {
         try {
             const {
@@ -136,7 +135,7 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-    },     
+    },
 
     deleteRequest: async (args) => {
         try {
