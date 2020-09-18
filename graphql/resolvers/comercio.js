@@ -39,8 +39,7 @@ module.exports = {
        const list = await Comercio.find()
         return list.map(item => {
             return {
-                ...item._doc,
-                _id: item.id
+                ...item._doc
             }
         })
     }
