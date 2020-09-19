@@ -1,39 +1,45 @@
-  type Additions {
-    _id: ID!
-    name: String!
-    img: String!
-    value: String!
-    active: String!
-    description: String
-  }
+type Additions {
+  _id: ID!
+  name: String!
+  img: String!
+  value: String!
+  active: String!
+  description: String
+}
 
-  type AdditionDetailsInput2{
-    addition: Additions
-    value: String!
-  }
-   
-  input AdditionsInput {
-    id: String!
-    name: String!
-    value: String!
-    img: String
-    active: String
-    description: String
-  }
+type AdditionDetailsInput2 {
+  addition: Additions
+  value: String!
+}
 
-  input AdditionsInputUpdate {
-    _id: ID!
-    name: String!
-    img: String!
-    value: String!
-    active: String!
-    description: String
-  }
+input AdditionsInput {
+  id: String!
+  name: String!
+  value: String!
+  img: String
+  active: String
+  description: String
+}
 
-  input AdditionsInputDelete {
-    _id: ID!
-  }
+input AdditionsFilter {
+  name: String
+  active: String
+  description: String
+}
 
-  type Query {
-    additions:[Additions!]
-  }
+input AdditionsInputUpdate {
+  _id: ID!
+  name: String!
+  img: String!
+  value: String!
+  active: String!
+  description: String
+}
+
+input AdditionsInputDelete {
+  _id: ID!
+}
+
+type Query {
+  additions(filter : AdditionsFilter ): [Additions!]
+}
