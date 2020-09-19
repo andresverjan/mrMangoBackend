@@ -48,6 +48,19 @@ type User {
     password: String
   }
 
+  
+  input UserFilter {
+    name: String
+    lastName: String
+    email: String
+    phoneNumber: String
+    createdAt: String
+    comercioId: String
+    online: Boolean
+    rol_id: String
+    username: String
+  }
+
   input UserInputDelete {
     _id: ID!
   }
@@ -58,7 +71,7 @@ type User {
   }
 
   type Query {
-    users:[User!]
+    users(filter: UserFilter):[User!]
   }
 
   type Mutation {
