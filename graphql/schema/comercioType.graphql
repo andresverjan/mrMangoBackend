@@ -27,6 +27,14 @@ input ComercioInputUpdate {
   lng: String 
 }
 
+input ComercioFilter {
+  _id: ID
+  id: String
+  name: String
+  location: String
+  description: String  
+}
+
 input ComercioInputDelete {
   _id: ID!
 }
@@ -38,7 +46,7 @@ input LocationInput{
 }
 
 type Query {
-  comercios: [Comercio!]
+  comercios(filter :ComercioFilter): [Comercio!]
   getComercioByLocation (location: LocationInput): Comercio
 }
 
