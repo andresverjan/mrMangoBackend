@@ -12,13 +12,12 @@ type AdditionDetailsInput2 {
   value: String!
 }
 
-input AdditionsInput {
-  id: String!
+input AdditionsInput {  
   name: String!
   value: String!
-  img: String
-  active: String
-  description: String
+  img: String!
+  active: String!
+  description: String!
 }
 
 input AdditionsFilter {
@@ -43,3 +42,9 @@ input AdditionsInputDelete {
 type Query {
   additions(filter : AdditionsFilter ): [Additions!]
 }
+
+ type Mutation {
+    createAddition(addition:AdditionsInput): Additions
+    updateAddition(addition:AdditionsInputUpdate): Additions
+    deleteAddition(addition:AdditionsInputDelete): Additions    
+  }
