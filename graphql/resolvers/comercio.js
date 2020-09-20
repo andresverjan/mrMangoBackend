@@ -87,10 +87,11 @@ module.exports = {
           delete objToUpdate[prop];
         }
         if (prop == "_id") {
+          console.log(prop);
           delete objToUpdate[prop];
         }
       }
-      console.log(objToUpdate);
+      
       const newUser = await Comercio.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
       if (!newUser) {
         throw new Error("Not found");
