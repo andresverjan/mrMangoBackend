@@ -74,14 +74,24 @@ module.exports = {
 
   updateComercio: async (args) => {
     try {
-      const { _id, name, location, description } = args.comercio;
-
-      const objToUpdate = new Comercio({
+      const { _id, id,  name, location, description } = args.comercio;
+      const objToUpdate = {
+        id, 
         name,
         location,
-        description,
-      });
-      const newUser = await User.findOneAndUpdate(_id, objToUpdate);
+        description
+      };
+      
+      for (let prop in objToUpdate) {
+        if (!objToUpdate[prop]) {
+          delete objToUpdate[prop];
+        }
+        if (prop == "_id") {
+          delete objToUpdate[prop];
+        }
+      }
+      console.log(objToUpdate);
+      const newUser = await Comercio.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
       if (!newUser) {
         throw new Error("Not found");
       }
