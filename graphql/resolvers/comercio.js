@@ -77,12 +77,11 @@ module.exports = {
       const { _id, name, location, description } = args.comercio;
 
       const objToUpdate = new Comercio({
-        _id,
         name,
         location,
         description,
       });
-      const newUser = await User.findOneAndUpdate(objToUpdate._id, objToUpdate);
+      const newUser = await User.findOneAndUpdate(_id, objToUpdate);
       if (!newUser) {
         throw new Error("Not found");
       }
