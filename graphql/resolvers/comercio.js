@@ -57,13 +57,15 @@ module.exports = {
 
   createComercio: async (args) => {
     try {
-      const { id, name, location, description } = args.comercio;
+      const { id, name, location, description, lat, lng } = args.comercio;
       console.log(args);
       const item = new Comercio({
         id,
         name,
         location,
         description,
+        lat,
+        lng
       });
       const newItem = await item.save();
       return { ...newItem._doc, _id: newItem.id };
@@ -74,12 +76,14 @@ module.exports = {
 
   updateComercio: async (args) => {
     try {
-      const { _id, id,  name, location, description } = args.comercio;
+      const { _id, id,  name, location, description, lat, lng  } = args.comercio;
       const objToUpdate = {
         id, 
         name,
         location,
-        description
+        description,
+        lat,
+        lng
       };
       
       for (let prop in objToUpdate) {
