@@ -27,11 +27,10 @@ module.exports = {
 
     createProducto: async (args) => {
         try {
-            const { name, lastName } = args.user;
+            const { id,  name, lastName, img, description, comercioId } = args.producto;
             console.log(args);
             const item = new Producto({
-                name,
-                lastName,
+                id,  name, lastName, img, description, comercioId
             });
             const newItem = await item.save();
             return { ...newItem._doc, _id: newItem.id };

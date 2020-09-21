@@ -32,7 +32,7 @@ type Query {
 }
 
 type Mutation {
-  createProducto(user: ProductoInput): Producto
-  updateProducto(user: ProductoInputUpdate): Producto
-  deleteProducto(user: ProductoInputDelete): Producto
+  createProducto(producto: ProductoInput): Producto
+  updateProducto(producto: ProductoInputUpdate): Producto
+  deleteProducto(producto: ProductoInputDelete): Producto
 }
