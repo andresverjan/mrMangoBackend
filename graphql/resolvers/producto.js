@@ -33,7 +33,7 @@ module.exports = {
                 id,  name, lastName, img, description, comercioId
             });
             const newItem = await item.save();
-            return { ...newItem._doc, _id: newItem.id };
+            return { ...newItem._doc, _id: newItem._id };
             //return { ...newUser}
         } catch (error) {
             throw error;

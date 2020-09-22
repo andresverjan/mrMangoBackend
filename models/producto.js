@@ -13,7 +13,7 @@ const productoSchema = new Schema({
         type: String,
         required: true
     },
-    Description: {
+    description: {
         type: String,
         required: false   
      },
