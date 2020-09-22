@@ -17,7 +17,7 @@ module.exports = {
             return list.map((item) => {
                 return {
                     ...item._doc,
-                    _id: item.id,
+                    _id: item._id,
                 };
             });
         } catch (error) {
@@ -57,17 +57,21 @@ module.exports = {
 
     updateProducto: async (args) => {
         try {
-            const { _id, name, lastName } = args.producto;
+            const { _id, id, name, img, description, comercioId } = args.producto;
 
-            const userUpdate = new Producto({
-                _id,
-                name,
-                lastName,
-            });
-            const newUser = await User.findOneAndUpdate(
-                userUpdate._id,
-                userUpdate
-            );
+            const objToUpdate = {
+                _id, id, name, img, description, comercioId
+            };
+
+            for (let prop in objToUpdate) {
+                if (!objToUpdate[prop]) {
+                  delete objToUpdate[prop];
+                }
+                if (prop == "_id") {
+                  delete objToUpdate[prop];
+                }
+              }
+              const newUser = await Producto.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
             if (!newUser) {
                 throw new Error("User not found");
             }
