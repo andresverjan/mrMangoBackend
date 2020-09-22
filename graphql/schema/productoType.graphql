@@ -4,7 +4,7 @@ type Producto {
   name: String!
   img: String!
   description: String
-  comercioId: String
+  comercioId: Int!
 }
 
 input ProductoInput {
@@ -12,7 +12,7 @@ input ProductoInput {
   name: String!
   img: String!
   description: String
-  comercioId: String
+  comercioId: Int!
 }
 
 input ProductoInputUpdate {
@@ -21,15 +21,22 @@ input ProductoInputUpdate {
   name: String!
   img: String!
   description: String
-  comercioId: String
+  comercioId: Int
 }
 
 input ProductoInputDelete {
   _id: ID!
 }
 
+input ProductoFilter {
+  name: String
+  description: String
+  comercioId: String
+}
+
 type Query {
   productos: [Producto!]
+  listarProductos(filter:ProductoFilter ): [Producto!]
 }
 
 type Mutation {
