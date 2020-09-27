@@ -44,7 +44,13 @@ module.exports = {
         let filter = helpers.getFilterFormObject(args.filter);
         where = { $or: filter };
       }
-      const list = await Comercio.find(where);
+
+      let sort = { name: "1" };
+      if (args.order != null && args.order != undefined) {
+        sort = helpers.getOrderFromObject(args.order);
+      }
+
+      const list = await Comercio.find(where).sort(sort);
       return list.map((item) => {
         return {
           ...item._doc,
@@ -76,16 +82,16 @@ module.exports = {
 
   updateComercio: async (args) => {
     try {
-      const { _id, id,  name, location, description, lat, lng  } = args.comercio;
+      const { _id, id, name, location, description, lat, lng } = args.comercio;
       const objToUpdate = {
-        id, 
+        id,
         name,
         location,
         description,
         lat,
         lng
       };
-      
+
       for (let prop in objToUpdate) {
         if (!objToUpdate[prop]) {
           delete objToUpdate[prop];
@@ -95,7 +101,7 @@ module.exports = {
           delete objToUpdate[prop];
         }
       }
-      
+
       const newUser = await Comercio.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
       if (!newUser) {
         throw new Error("Not found");

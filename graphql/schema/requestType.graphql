@@ -4,7 +4,7 @@ type Request {
   _id: ID!
   userId: String!
   createdAt: Date
-  updatedAt: String
+  updatedAt: Date
   status: String
   total: String!
   details: [RequestDetails]

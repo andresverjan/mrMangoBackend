@@ -45,8 +45,14 @@ input LocationInput{
   id: String!
 }
 
+input ComercioOrderBy {
+  name: String
+  location: String
+  description: String 
+}
+
 type Query {
-  comercios(filter :ComercioFilter): [Comercio!]
+  comercios(filter :ComercioFilter, order: ComercioOrderBy  ): [Comercio!]
   getComercioByLocation (location: LocationInput): Comercio
 }
 
