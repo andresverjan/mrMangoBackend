@@ -28,8 +28,7 @@ module.exports = {
     listarProductos: async (args) => {
         let where = {};
         if (args.filter != null && args.filter != undefined) {
-          let filter = helpers.getFilterFormObject(args.filter);
-          where = { $or: filter };
+            where = helpers.getFilterFormObject(args.filter);
         }
         console.log("LISTADO... ");        
         try {

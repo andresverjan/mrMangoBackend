@@ -41,8 +41,7 @@ module.exports = {
     try {
       let where = {};
       if (args.filter != null && args.filter != undefined) {
-        let filter = helpers.getFilterFormObject(args.filter);
-        where = { $or: filter };
+        where = helpers.getFilterFormObject(args.filter);
       }
       const list = await Comercio.find(where);
       return list.map((item) => {
