@@ -21,6 +21,10 @@ const subproductsSchema = new Schema({
         type: String,
         required: false    
     },
+    productoId: {
+        type: Number,
+        required: false    
+    },
     comercioId: {
         type: Number,
         required: false    

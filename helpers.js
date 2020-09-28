@@ -57,7 +57,11 @@ const getFilterFormObject = (object) => {
   let result = [];
   for (let key of Object.keys(object)) {
     let valor = object[key];
-    if (valor != null && valor != "" && valor != undefined) {
+    if(!isNaN(valor)) {
+      var obj = {};
+      obj[key] = Number(valor);
+      result.push(obj);  
+    } else if (valor != null && valor != "" && valor != undefined) {
       var obj = {};
       obj[key] = { $regex: valor, $options: "i" };
       result.push(obj);

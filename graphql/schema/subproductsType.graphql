@@ -19,6 +19,12 @@ type Subproducto {
     img: String
   }
 
+  input SubproductoFilter {
+    name: String
+    productoId: String
+    comercioId: String
+  }
+
   input subproductoInputUpdate {
     _id: ID!
     name: String!
@@ -36,5 +42,12 @@ type Subproducto {
 
   type Query {
     subproductos:[Subproducto!]
+    listarSubproductos(filter:SubproductoFilter ): [Subproducto!]
     getSubproductosByProductoId(productoId:Int!, comercioId:String):[Subproducto!]
+  }
+
+  type Mutation {
+    createSubproducto(subproducto: subproductoInput): Subproducto
+    updateSubproducto(subproducto: subproductoInputUpdate): Subproducto
+    deleteSubproducto(subproducto: subproductoInputDelete): Subproducto
   }
