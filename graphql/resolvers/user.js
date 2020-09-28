@@ -8,7 +8,13 @@ module.exports = {
       if (args.filter != null && args.filter != undefined) {
         where = helpers.getFilterFormObject(args.filter);
       }
-      const list = await User.find(where);
+
+      let sort = { name: "1" };
+      if (args.order != null && args.order != undefined) {
+        sort = helpers.getOrderFromObject(args.order);
+      }
+
+      const list = await User.find(where).sort(sort);
       return list.map((user) => {
         return {
           ...user._doc,

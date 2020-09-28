@@ -24,8 +24,8 @@ const getNearestShop = (arrComercios, userCoord) => {
     const a =
       Math.pow(Math.sin(deltLat / 2), 2) +
       Math.cos(Number(userLat)) *
-        Math.cos(Number(shopLat)) *
-        Math.pow(Math.sin(deltLng / 2), 2);
+      Math.cos(Number(shopLat)) *
+      Math.pow(Math.sin(deltLng / 2), 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const dist = EARTH_RADIUS * c;
@@ -66,9 +66,25 @@ const getFilterFormObject = (object) => {
   return result.length>0 ?   { $or: result }: {}; 
 };
 
+
+const getOrderFromObject = (object) => {
+  for (let key of Object.keys(object)) {
+    let valor = object[key];
+    if (valor != null && valor != "" && valor != undefined) {
+      if (valor.toLowerCase() == "asc" ) {
+        object[key] = "1";
+      } else {
+        object[key] = "-1";
+      }
+    }
+  }
+  return object;
+};
+
 module.exports = {
   getNearestShop,
   getUserByJwt,
   getCurrentDateTime,
   getFilterFormObject,
+  getOrderFromObject
 };
