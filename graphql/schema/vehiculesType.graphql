@@ -1,0 +1,52 @@
+scalar Date
+type Vehicule {
+    id: String!
+    name: String!
+    img: String
+    description: String
+    brand: String!
+    model: Date!
+    color: String!
+}
+
+input VehiculeInput {
+    id: String!
+    name: String!
+    img: String
+    description: String
+    brand: String!
+    model: Date!
+    color: String!
+}
+
+input VehiculeInputUpdate {
+    id: String
+    name: String
+    img: String
+    description: String
+    brand: String
+    model: Date
+    color: String
+}
+
+input VehiculeInputDelete {
+    id: String!
+}
+
+input VehiculeFilter {
+    name: String
+    description: String
+    brand: String
+    model: Date
+    color: String
+}
+
+type Query {
+    vehicules(filter: VehiculeFilter): [Vehicule!]
+}
+
+type Mutation {
+    createVehicule(vehicule: VehiculeInput): Vehicule
+    updateVehicule(vehicule: VehiculeInputUpdate): Vehicule
+    deleteVehicule(vehicule: VehiculeInputDelete): Vehicule
+}
