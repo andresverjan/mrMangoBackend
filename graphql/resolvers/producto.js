@@ -2,14 +2,14 @@ const Producto = require("../../models/producto");
 const helpers = require("../../helpers");
 
 module.exports = {
-    productos: async (args, ctx) => {
-        let user, comercioId;
-        try {
-            user = await helpers.getUserByJwt(ctx);
-            comercioId = user.comercioId ? user.comercioId : 1;
-        } catch (error) {
-            comercioId = 1;
-        }
+	productos: async (args, ctx) => {
+		let user, comercioId;
+		try {
+			user = await helpers.getUserByJwt(ctx);
+			comercioId = user.comercioId ? user.comercioId : 1;
+		} catch (error) {
+			comercioId = 1;
+		}
 
         try {
             const list = await Producto.find({ comercioId });
@@ -38,21 +38,36 @@ module.exports = {
         }
     },
 
+	createProducto: async (args) => {
+		try {
+			const {
+				id,
+				name,
+				lastName,
+				img,
+				description,
+				comercioId,
+			} = args.producto;
+			console.log(args);
+			const item = new Producto({
+				id,
+				name,
+				lastName,
+				img,
+				description,
+				comercioId,
+			});
+			const newItem = await item.save();
+			return { ...newItem._doc, _id: newItem._id };
+			//return { ...newUser}
+		} catch (error) {
+			throw error;
+		}
+	},
 
-    createProducto: async (args) => {
-        try {
-            const { id,  name, lastName, img, description, comercioId } = args.producto;
-            console.log(args);
-            const item = new Producto({
-                id,  name, lastName, img, description, comercioId
-            });
-            const newItem = await item.save();
-            return { ...newItem._doc, _id: newItem._id };
-            //return { ...newUser}
-        } catch (error) {
-            throw error;
-        }
-    },
+	updateProducto: async (args) => {
+		try {
+			const { _id, name, lastName } = args.producto;
 
     updateProducto: async (args) => {
         try {
