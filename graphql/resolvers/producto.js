@@ -65,10 +65,6 @@ module.exports = {
 		}
 	},
 
-	updateProducto: async (args) => {
-		try {
-			const { _id, name, lastName } = args.producto;
-
     updateProducto: async (args) => {
         try {
             const { _id, id, name, img, description, comercioId } = args.producto;
