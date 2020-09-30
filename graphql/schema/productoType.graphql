@@ -34,9 +34,16 @@ input ProductoFilter {
   comercioId: Int
 }
 
+input ProductoOrderBy {
+  name: String
+  location: String
+  description: String 
+  comercioId: Int
+}
+
 type Query {
   productos: [Producto!]
-  listarProductos(filter:ProductoFilter ): [Producto!]
+  listarProductos(filter:ProductoFilter, order: ProductoOrderBy  ): [Producto!]
 }
 
 type Mutation {
