@@ -66,7 +66,7 @@ module.exports = {
           delete objToUpdate[prop];
         }
       }
-      const newUser = await Comercio.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
+      const newUser = await Additions.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
     
       if (!newUser) {
         throw new Error("Not found");
