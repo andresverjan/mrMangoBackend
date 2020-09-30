@@ -50,18 +50,24 @@ module.exports = {
     try {
       const { _id, name, img, value, active, description } = args.addition;
 
-      const objToUpdate = new Additions({
-        _id,
+      const objToUpdate = {
         name,
         img,
         value,
         active,
         description,
-      });
-      const newUser = await Additions.findOneAndUpdate(
-        objToUpdate._id,
-        objToUpdate
-      );
+      };
+
+      for (let prop in objToUpdate) {
+        if (!objToUpdate[prop]) {
+          delete objToUpdate[prop];
+        }
+        if (prop == "_id") {
+          delete objToUpdate[prop];
+        }
+      }
+      const newUser = await Comercio.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
+    
       if (!newUser) {
         throw new Error("Not found");
       }
