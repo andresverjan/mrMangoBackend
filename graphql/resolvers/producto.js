@@ -30,21 +30,36 @@ module.exports = {
         if (args.filter != null && args.filter != undefined) {
             where = helpers.getFilterFormObject(args.filter);
         }
-        console.log("LISTADO... ");        
+        let sort = { name: "1" };
+        if (args.order != null && args.order != undefined) {
+            sort = helpers.getOrderFromObject(args.order);
+        }
+
         try {
-            return  await Producto.find(where);            
+            return await Producto.find(where).sort(sort);
         } catch (error) {
             throw error;
         }
     },
 
-
     createProducto: async (args) => {
         try {
-            const { id,  name, lastName, img, description, comercioId } = args.producto;
+            const {
+                id,
+                name,
+                lastName,
+                img,
+                description,
+                comercioId,
+            } = args.producto;
             console.log(args);
             const item = new Producto({
-                id,  name, lastName, img, description, comercioId
+                id,
+                name,
+                lastName,
+                img,
+                description,
+                comercioId,
             });
             const newItem = await item.save();
             return { ...newItem._doc, _id: newItem._id };
@@ -64,13 +79,13 @@ module.exports = {
 
             for (let prop in objToUpdate) {
                 if (!objToUpdate[prop]) {
-                  delete objToUpdate[prop];
+                    delete objToUpdate[prop];
                 }
                 if (prop == "_id") {
-                  delete objToUpdate[prop];
+                    delete objToUpdate[prop];
                 }
-              }
-              const newUser = await Producto.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
+            }
+            const newUser = await Producto.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
             if (!newUser) {
                 throw new Error("User not found");
             }
