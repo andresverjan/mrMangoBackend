@@ -40,9 +40,18 @@ type Subproducto {
     _id: ID!
   }
 
+  input SubproductoOrderBy {
+    productoId: String
+    comercioId: String
+    name: String
+    value: String
+    description: String
+    activo: String
+  }
+
   type Query {
     subproductos:[Subproducto!]
-    listarSubproductos(filter:SubproductoFilter ): [Subproducto!]
+    listarSubproductos(filter:SubproductoFilter, order: SubproductoOrderBy ): [Subproducto!]
     getSubproductosByProductoId(productoId:Int!, comercioId:String):[Subproducto!]
   }
 
