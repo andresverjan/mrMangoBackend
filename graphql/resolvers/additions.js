@@ -8,8 +8,7 @@ module.exports = {
     try {
       let where = {};
       if (args.filter != null && args.filter != undefined) {
-        let filter = helpers.getFilterFormObject(args.filter);
-        where = { $or: filter };
+        where = helpers.getFilterFormObject(args.filter);
       }
 
       let sort = { name: "1" };
