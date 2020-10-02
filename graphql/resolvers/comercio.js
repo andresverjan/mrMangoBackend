@@ -119,7 +119,7 @@ module.exports = {
         _id: _id,
       });
       const newUser = await item.deleteOne(item._id);
-      return { ...newUser._doc, _id: newUser.id };
+      return { ...newUser._doc, _id: newUser._id };
     } catch (error) {
       throw error;
     }

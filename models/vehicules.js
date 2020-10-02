@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { schema } = require("./requestObs");
 const Schema = mongoose.Schema;
 const vehiculesSchema = new Schema(
     {

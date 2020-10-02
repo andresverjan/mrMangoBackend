@@ -1,5 +1,6 @@
 scalar Date
 type Vehicule {
+    _id: ID!
     id: String!
     name: String!
     img: String
@@ -20,6 +21,7 @@ input VehiculeInput {
 }
 
 input VehiculeInputUpdate {
+    _id: ID!
     id: String
     name: String
     img: String
@@ -30,7 +32,7 @@ input VehiculeInputUpdate {
 }
 
 input VehiculeInputDelete {
-    id: String!
+  _id: ID!
 }
 
 input VehiculeFilter {

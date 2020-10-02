@@ -7,9 +7,9 @@ module.exports = {
         if (args.filter != null && args.filter != undefined) {
             where = helpers.getFilterFormObject(args.filter);
         }
-        console.log("LISTADO... ");
+        return await Vehicule.find(where);
         try {
-            return await Vehicule.find(where);
+            return vehicules.map(item=>({...item._doc, _id: item._id}))
         } catch (error) {
             throw error;
         }
@@ -26,7 +26,6 @@ module.exports = {
                 model,
                 color,
             } = args.vehicule;
-            console.log(args);
             const item = new Vehicule({
                 id,
                 name,
@@ -38,7 +37,6 @@ module.exports = {
             });
             const newItem = await item.save();
             return { ...newItem._doc, _id: newItem.id };
-            //return { ...newUser}
         } catch (error) {
             throw error;
         }
@@ -47,6 +45,7 @@ module.exports = {
     updateVehicule: async (args) => {
         try {
             const {
+                _id,
                 id,
                 name,
                 img,
@@ -57,6 +56,7 @@ module.exports = {
             } = args.vehicule;
 
             const objToUpdate = {
+                _id,
                 id,
                 name,
                 img,
@@ -70,49 +70,49 @@ module.exports = {
                 if (!objToUpdate[prop]) {
                     delete objToUpdate[prop];
                 }
-                if (prop == "id") {
+                if (prop == "_id") {
                     delete objToUpdate[prop];
                 }
             }
 
             const newVehicule = await Vehicule.findOneAndUpdate(
-                { id },
+                { _id },
                 { $set: objToUpdate },
                 { new: false }
             );
             if (!newVehicule) {
-                throw new Error("Vehivule not found");
+                throw new Error("Vehicule not found");
             }
             return { ...newVehicule._doc, _id: newVehicule.id };
-            //return { ...newUser}
         } catch (error) {
             throw error;
         }
     },
 
     deleteVehicule: async (args) => {
+  
         // try {
-        //     const { id } = args.vehicule;
+        //     const { _id } = args.user;
         //     console.log(args);
-        //     const item = new Vehicule({
-        //         id,
+        //     const user = new User({
+        //       _id: _id,
         //     });
-        //     const deletedVehicule = await item.deleteOne(item.id);
-        //     return { ...deletedVehicule._doc, _id: deletedVehicule.id };
-        // } catch (error) {
+        //     const newUser = await user.deleteOne(user._id);
+        //     return { ...newUser._doc, _id: newUser.id };
+        //   } catch (error) {
         //     throw error;
-        // }
+        //   }
 
-        console.log("ENTRO EN DELETE VEHICULO");
+        console.log("ENTRO EN DELETE VEHICULO")
 
         try {
-            const { id } = args.vehicule;
+            const { _id } = args.vehicule;
             console.log(args);
             const vehicule = new Vehicule({
-                id: id,
+                _id: _id,
             });
-            const newVehicule = await vehicule.deleteOne(vehicule.id);
-            return { ...newVehicule._doc, _id: newVehicule.id };
+            const newVehicule = await vehicule.deleteOne(vehicule._id);
+            return { ...newVehicule._doc, _id: newVehicule._id };
         } catch (error) {
             throw error;
         }
