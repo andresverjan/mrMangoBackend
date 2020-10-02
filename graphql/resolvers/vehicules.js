@@ -8,11 +8,6 @@ module.exports = {
             where = helpers.getFilterFormObject(args.filter);
         }
         return await Vehicule.find(where);
-        try {
-            return vehicules.map(item=>({...item._doc, _id: item._id}))
-        } catch (error) {
-            throw error;
-        }
     },
 
     createVehicule: async (args) => {
@@ -90,24 +85,8 @@ module.exports = {
     },
 
     deleteVehicule: async (args) => {
-  
-        // try {
-        //     const { _id } = args.user;
-        //     console.log(args);
-        //     const user = new User({
-        //       _id: _id,
-        //     });
-        //     const newUser = await user.deleteOne(user._id);
-        //     return { ...newUser._doc, _id: newUser.id };
-        //   } catch (error) {
-        //     throw error;
-        //   }
-
-        console.log("ENTRO EN DELETE VEHICULO")
-
         try {
             const { _id } = args.vehicule;
-            console.log(args);
             const vehicule = new Vehicule({
                 _id: _id,
             });
