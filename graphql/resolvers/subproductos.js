@@ -62,7 +62,7 @@ module.exports = {
         if (args.filter != null && args.filter != undefined) {
 //            console.log("LISTADO... ", args); 
           let filter = helpers.getFilterFormObject(args.filter);
-          where = { $or: filter };
+          where = { $and: filter };
           console.log("LISTADO... ", where); 
         }
                
