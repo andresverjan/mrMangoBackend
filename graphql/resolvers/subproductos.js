@@ -60,10 +60,10 @@ module.exports = {
     listarSubproductos: async (args) => {
         let where = {};
         if (args.filter != null && args.filter != undefined) {
-//            console.log("LISTADO... ", args); 
+//            console.log("LISTADO... args.filter ", args.filter); 
           let filter = helpers.getFilterFormObject(args.filter);
           where = { $and: filter };
-          console.log("LISTADO... ", where); 
+//          console.log("LISTADO... WHERE", where); 
         }
                
         try {

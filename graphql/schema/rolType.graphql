@@ -1,0 +1,20 @@
+type rol {
+  _id: ID!
+  name: String!
+}
+
+input rolesOrderBy {
+  name: String
+}
+
+input rolInputDelete {
+  _id: ID!
+}
+
+type Query {
+  roles(rol: rolesOrderBy): [rol!]
+}
+
+type Mutation {
+  deleteRol(comercio: rolInputDelete): rol
+}
