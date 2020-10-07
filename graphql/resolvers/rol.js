@@ -1,9 +1,6 @@
 const Rol = require("../../models/rol");
-/*const User = require("../../models/user");
-const helpers = require("../../helpers");*/
 
 module.exports = {
-  
     roles: async (args) => {
         try {
         const list = await Rol.find();
@@ -16,6 +13,20 @@ module.exports = {
         throw error;
         }
     },
+
+    createRol: async (args) => {
+        try {
+          const { id, name } = args.rol;
+          const item = new Rol({
+            id,
+            name            
+          });
+          const newItem = await item.save();
+          return { ...newItem._doc, _id: newItem.id };
+        } catch (error) {
+          throw error;
+        }
+      },
 
     deleteRol: async (args) => {
         try {
