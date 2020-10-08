@@ -59,7 +59,9 @@ input UserFilter {
   rol_id: String
   username: String
 }
-
+input UserFilterProfile{
+  _id: ID!
+}
 input UserInputDelete {
   _id: ID!
 }
@@ -83,6 +85,7 @@ input UsersOrderBy {
 
 type Query {
   users(filter: UserFilter, order: UsersOrderBy): [User!]
+  getMyProfile(profile: UserFilterProfile): User!
 }
 
 type Mutation {
