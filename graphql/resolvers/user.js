@@ -161,6 +161,18 @@ module.exports = {
     }
   },
 
+  getMyProfile: async (args) =>{
+    try{
+      const {_id}= args.profile;
+      const user = new User({
+        _id: _id,
+      });
+      return await User.findById(user._id);
+    }catch(error){
+      throw error;
+    }
+  },
+
   deleteUser: async (args) => {
     try {
       const { _id } = args.user;
