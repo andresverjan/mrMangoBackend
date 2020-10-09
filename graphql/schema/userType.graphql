@@ -91,4 +91,5 @@ type Mutation {
   deleteUser(user: UserInputDelete): User
   logout: Boolean
   login(login: UserLogin): Boolean
+  loginWeb(login: UserLogin): Boolean
 }
