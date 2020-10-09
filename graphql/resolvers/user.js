@@ -69,7 +69,7 @@ module.exports = {
 
   updateUser: async (args) => {
     try {
-      const {
+      const { 
         _id,
         name,
         lastName,
@@ -117,6 +117,34 @@ module.exports = {
     }
   },
 
+  loginWeb: async (args) => {
+    try {
+      const { username, password } = args.login;
+      const user = await User.findOne({ username });
+
+      if (!user) {
+        throw new Error("Invalid User");
+      } else if (user.password === password) {// && (user.rol_id === 1 || user.rol_id === 2)
+//        console.log("Entro...", user.password == password);
+        user.online = true;
+        await User.findOneAndUpdate(
+          { _id: user._id },
+          { $set: user },
+          { new: true }
+        );
+
+        user.password = "";
+      } else{
+          console.log("No Entro...");
+          throw new Error("Invalid password");
+      }
+      return { ...user._doc, _id: user.id };
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  
   login: async (args) => {
     try {
       const { username, password } = args.login;
@@ -143,34 +171,7 @@ module.exports = {
     }
   },
 
-  loginWeb: async (args) => {
-    try {
-      const { username, password } = args.login;
-      const user = await User.findOne({ username });
-
-      if (!user) {
-        throw new Error("Invalid User");
-      } else if (user.password === password && (user.rol_id === 1 || user.rol_id === 2)) {
-        console.log("Entro...", user.password == password);
-        user.online = true;
-        await User.findOneAndUpdate(
-          { _id: user._id },
-          { $set: user },
-          { new: true }
-        );
-      } else if (user.rol_id === 3 ) {
-          return false
-      } else{
-          console.log("No Entro...");
-          throw new Error("Invalid password");
-      }
-
-      return true;
-    } catch (error) {
-      throw error;
-    }
-  },
-
+  
   logout: async (args, ctx) => {
     let user;
     try {
