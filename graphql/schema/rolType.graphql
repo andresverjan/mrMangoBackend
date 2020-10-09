@@ -1,5 +1,6 @@
 type rol {
   _id: ID!
+  id: String
   name: String!
 }
 
@@ -11,10 +12,16 @@ input rolInputDelete {
   _id: ID!
 }
 
+input RolInput {
+  id: String
+  name: String!
+}
+
 type Query {
   roles(rol: rolesOrderBy): [rol!]
 }
 
 type Mutation {
+  createRol(rol: RolInput): rol
   deleteRol(comercio: rolInputDelete): rol
 }
