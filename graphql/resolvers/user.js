@@ -120,11 +120,14 @@ module.exports = {
   loginWeb: async (args) => {
     try {
       const { username, password } = args.login;
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ 
+        username: { $eq: username },
+        password: { $eq: password} 
+      });
 
       if (!user) {
-        throw new Error("Invalid User");
-      } else if (user.password === password) {// && (user.rol_id === 1 || user.rol_id === 2)
+        throw new Error("Invalid User / Invalid password");
+      } else if (user.rol_id === 1 || user.rol_id === 2) { //(user.password === password) {// &&
 //        console.log("Entro...", user.password == password);
         user.online = true;
         await User.findOneAndUpdate(
@@ -136,7 +139,7 @@ module.exports = {
         user.password = "";
       } else{
           console.log("No Entro...");
-          throw new Error("Invalid password");
+          throw new Error("Invalid Rol");
       }
       return { ...user._doc, _id: user.id };
     } catch (error) {
