@@ -1,0 +1,44 @@
+scalar Date
+type Documento {
+  _id: ID!
+  id: String!
+  name: String!
+  description: String
+  fechaPublicacion: Date!
+}
+
+input DocumentoInput {
+  id: String!
+  name: String!
+  description: String
+  fechaPublicacion: Date!
+}
+
+input DocumentoInputUpdate {
+  _id: ID!
+  id: String
+  name: String
+  description: String
+  fechaPublicacion: Date
+}
+
+input DocumentoInputDelete {
+  _id: ID!
+}
+
+input DocumentoFilter {
+  name: String
+  description: String
+  fechaPublicacion: Date
+
+}
+
+type Query {
+  documentos(filter: DocumentoFilter): [Documento!]
+}
+
+type Mutation {
+  createDocumento(Documento: DocumentoInput): Documento
+  updateDocumento(Documento: DocumentoInputUpdate): Documento
+  deleteDocumento(Documento: DocumentoInputDelete): Documento
+}
