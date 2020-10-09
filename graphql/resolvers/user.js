@@ -102,7 +102,6 @@ module.exports = {
           delete userUpdate[prop];
         }
       }
-      console.log(userUpdate);
       const newUser = await User.findOneAndUpdate(
         { _id: userUpdate._id },
         { $set: userUpdate },
@@ -124,8 +123,7 @@ module.exports = {
 
       if (!user) {
         throw new Error("Invalid User");
-      } else if (user.password === password) {// && (user.rol_id === 1 || user.rol_id === 2)
-//        console.log("Entro...", user.password == password);
+      } else if (user.password === password) {
         user.online = true;
         await User.findOneAndUpdate(
           { _id: user._id },
@@ -135,7 +133,6 @@ module.exports = {
 
         user.password = "";
       } else{
-          console.log("No Entro...");
           throw new Error("Invalid password");
       }
       return { ...user._doc, _id: user.id };
@@ -153,7 +150,6 @@ module.exports = {
       if (!user) {
         throw new Error("Invalid User");
       } else if (user.password === password) {
-        console.log("Entro...", user.password == password);
         user.online = true;
         await User.findOneAndUpdate(
           { _id: user._id },
@@ -161,7 +157,6 @@ module.exports = {
           { new: true }
         );
       } else {
-        console.log("No Entro...");
         throw new Error("Invalid password");
       }
 
@@ -179,9 +174,7 @@ module.exports = {
       user.jwt = "";
       user.online = false;
 
-      console.log(user);
       const newUser = await User.updateOne({ _id: user._id }, { $set: user });
-      console.log(newUser);
       if (!newUser) {
         throw new Error("User not found");
       }
@@ -194,7 +187,6 @@ module.exports = {
   deleteUser: async (args) => {
     try {
       const { _id } = args.user;
-      console.log(args);
       const user = new User({
         _id: _id,
       });
