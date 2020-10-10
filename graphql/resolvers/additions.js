@@ -8,8 +8,7 @@ module.exports = {
     try {
       let where = {};
       if (args.filter != null && args.filter != undefined) {
-        let filter = helpers.getFilterFormObject(args.filter);
-        where = { $or: filter };
+        where = helpers.getFilterFormObject(args.filter);
       }
 
       let sort = { name: "1" };
@@ -51,18 +50,24 @@ module.exports = {
     try {
       const { _id, name, img, value, active, description } = args.addition;
 
-      const objToUpdate = new Additions({
-        _id,
+      const objToUpdate = {
         name,
         img,
         value,
         active,
         description,
-      });
-      const newUser = await Additions.findOneAndUpdate(
-        objToUpdate._id,
-        objToUpdate
-      );
+      };
+
+      for (let prop in objToUpdate) {
+        if (!objToUpdate[prop]) {
+          delete objToUpdate[prop];
+        }
+        if (prop == "_id") {
+          delete objToUpdate[prop];
+        }
+      }
+      const newUser = await Additions.findOneAndUpdate({ _id: _id }, { $set: objToUpdate }, { new: false });
+    
       if (!newUser) {
         throw new Error("Not found");
       }

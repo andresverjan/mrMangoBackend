@@ -54,7 +54,7 @@ const getUserByJwt = async (ctx) => {
 };
 
 const getFilterFormObject = (object) => {
-  let result = [];
+  let result = [];  
   for (let key of Object.keys(object)) {
     let valor = object[key];
     if(!isNaN(valor)) {
@@ -66,8 +66,8 @@ const getFilterFormObject = (object) => {
       obj[key] = { $regex: valor, $options: "i" };
       result.push(obj);
     }
-  }
-  return result;
+  }  
+  return result.length>0 ?   { $or: result }: {}; 
 };
 
 

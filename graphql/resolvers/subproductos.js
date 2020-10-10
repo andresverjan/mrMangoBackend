@@ -60,14 +60,16 @@ module.exports = {
     listarSubproductos: async (args) => {
         let where = {};
         if (args.filter != null && args.filter != undefined) {
-//            console.log("LISTADO... args.filter ", args.filter); 
-          let filter = helpers.getFilterFormObject(args.filter);
-          where = { $and: filter };
-//          console.log("LISTADO... WHERE", where); 
+            where = helpers.getFilterFormObject(args.filter);
         }
-               
+
+        let sort = { name: "1" };
+        if (args.order != null && args.order != undefined) {
+            sort = helpers.getOrderFromObject(args.order);
+        }
+
         try {
-            return  await Subproducto.find(where);            
+            return await Subproducto.find(where).sort(sort);
         } catch (error) {
             throw error;
         }

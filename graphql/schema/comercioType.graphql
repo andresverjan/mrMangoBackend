@@ -46,9 +46,10 @@ input LocationInput{
 }
 
 input ComercioOrderBy {
+  id: String
   name: String
   location: String
-  description: String 
+  description: String
 }
 
 type Query {

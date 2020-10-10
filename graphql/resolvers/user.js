@@ -6,8 +6,7 @@ module.exports = {
     try {
       let where = {};
       if (args.filter != null && args.filter != undefined) {
-        let filter = helpers.getFilterFormObject(args.filter);
-        where = { $or: filter };
+        where = helpers.getFilterFormObject(args.filter);
       }
 
       let sort = { name: "1" };
@@ -190,6 +189,18 @@ module.exports = {
       }
       return "hasta luego";
     } catch (error) {
+      throw error;
+    }
+  },
+
+  getMyProfile: async (args) =>{
+    try{
+      const {_id}= args.profile;
+      const user = new User({
+        _id: _id,
+      });
+      return await User.findById(user._id);
+    }catch(error){
       throw error;
     }
   },
