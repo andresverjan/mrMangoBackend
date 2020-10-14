@@ -125,20 +125,17 @@ module.exports = {
       });
 
       if (!user) {
-        throw new Error("Invalid User / Invalid password");
-      } else if (user.rol_id === 1 || user.rol_id === 2) { //(user.password === password) {// &&
-//        console.log("Entro...", user.password == password);
+        throw new Error("Username and password invalid");
+      } else if (user.rol_id === 1 || user.rol_id === 2) {
         user.online = true;
         await User.findOneAndUpdate(
           { _id: user._id },
           { $set: user },
           { new: true }
         );
-
         user.password = "";
       } else{
-          console.log("No Entro...");
-          throw new Error("Invalid Rol");
+        throw new Error("Username and password invalid");
       }
       return { ...user._doc, _id: user.id };
     } catch (error) {
