@@ -4,11 +4,23 @@ const RequestDetail = require('../../models/requestdetails');
 const RequestDetailsAdditions = require('../../models/requestDetailsAdditions');
 const RequestObs = require("../../models/requestObs");
 const Subproducts = require("../../models/subproducts");
+const helpers = require("../../helpers");
 
 module.exports = {
     requests: async (args) => {
+
+        let where = {};
+        if (args.filter != null && args.filter != undefined) {
+            where = helpers.getFilterFormObject(args.filter);
+        }
+
+        let sort = { updatedAt: "0" };
+        if (args.order != null && args.order != undefined) {
+            sort = helpers.getOrderFromObject(args.order);
+        }
+
         try {
-            const requestList = Request.find()
+            const requestList = Request.find(where).sort(sort)
                 .populate({ path: 'details.subproducto', model: 'subproducts' })
                 .populate({ path: 'details.additions.addition' });
             //.populate({path: 'details', populate:  { path: 'additions', populate:  { path: 'addition' }   }});    
