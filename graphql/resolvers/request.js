@@ -87,28 +87,19 @@ module.exports = {
   acceptRequest: async (args) => {
     try {
       const { _id } = args.request;
-      console.log("\n\nEL ID!!!!:", _id);
+
       const request = new Request({
         _id: _id,
         updatedAt: new Date().toISOString(),
         status: 2,
       });
-      console.log("ANTES DE ACTUALIZARRRR!!", request);
       const newRequest = await Request.findOneAndUpdate(
         { _id: { $eq: request._id } },
         { $set: request },
         { new: true, upsert: true }
       );
-      console.log("DESPUES DE ACTUALIZAR", newRequest);
 
       const newReq = await newRequest.save();
-      console.log("ANTES DE GUARDAR: ", newReq);
-      const res = await Request.updateOne(
-        { _id: request._id },
-        {
-          $push: { observations: newReq._id },
-        }
-      );
       if (!newRequest) {
         throw new Error("Request not found");
       }
