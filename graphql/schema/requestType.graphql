@@ -60,6 +60,17 @@ input RequestInputDelete {
   _id: ID!
 }
 
+input RequestInputCancelar{
+_id: ID!
+observations: String
+
+}
+
+input RequestInputAccept{
+  _id: ID!
+}
+
+
 type Query {
   requests: [Request!]
   getDetailByRequestId(requestId:ID!): Request!
@@ -71,5 +82,7 @@ type Mutation {
 
   updateRequest(request: RequestInputUpdate): Request
   deleteRequest(request: RequestInputDelete): Request
-  cancelRequest(request: RequestInputUpdate): Request 
+  cancelRequest(request: RequestInputCancelar): Request
+  acceptRequest(request: RequestInputAccept):Request
+   
 } 
