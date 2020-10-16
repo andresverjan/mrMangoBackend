@@ -88,12 +88,35 @@ module.exports = {
             throw error;
         }
     },
-
+    acceptRequest: async (args) => {
+        try {
+            const {
+                _id,            
+            } = args.request;
+            let request = await Request.findById(_id);
+            request = new Request({
+                ...request, status:2, updatedAt: new Date().toISOString()
+            })
+            console.log(request, "antes del update ???? ")
+            const newRequest = await Request.findOneAndUpdate(
+                {_id: _id},
+                {$set: request},
+                {new: true}
+                
+            );
+            if (!newRequest) {
+                throw new Error("Request not found");
+            }
+            return { ...newRequest._doc, _id: newRequest.id };
+        } catch (error) {
+            throw error;
+        }
+    },
     cancelRequest: async (args) => {
         try {
-            const { userId, _id, observations } = args.request;
+            const { _id, observations } = args.request;
             const request = new Request({
-                _id: _id, //observations.requestId,
+                _id: _id,
                 updatedAt: new Date().toISOString(),
                 status: 4,
             });
@@ -107,14 +130,13 @@ module.exports = {
             console.log("Actualizó correctamente: ", newRequest);
             const requestObs = new RequestObs({
                 requestId: request._id,
-                userId,
                 createdAt: new Date().toISOString(),
                 status: 4,
-                observation: observations.observation,
+                observation: observations,
             });
             console.log(
                 "Observaciones que vienen en el request",
-                observations.observation
+                observations
             );
             const newReqObs = await requestObs.save();
             console.log("Nuevo requestObs: ", newReqObs);
