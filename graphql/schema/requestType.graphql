@@ -84,5 +84,7 @@ type Mutation {
   deleteRequest(request: RequestInputDelete): Request
   cancelRequest(request: RequestInputCancelar): Request
   acceptRequest(request: RequestInputAccept):Request
+  preparedRequest(request: RequestInputAccept):Request
+  deliveredRequest(request: RequestInputAccept):Request
    
 } 
