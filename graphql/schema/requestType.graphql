@@ -56,12 +56,20 @@ input RequestObsInput {
   requestId: ID!
 }
 
+input RequestFilter {
+  status: String
+}
+
+input RequestOrderBy {
+    updatedAt: String
+}
+
 input RequestInputDelete {
   _id: ID!
 }
 
 type Query {
-  requests: [Request!]
+  requests(filter:RequestFilter, order: RequestOrderBy): [Request!]
   getDetailByRequestId(requestId:ID!): Request!
   getMyRequest(userId:ID!):[Request!]
 }
