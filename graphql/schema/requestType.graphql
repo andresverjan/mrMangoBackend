@@ -2,7 +2,7 @@
 scalar Date
 type Request {
   _id: ID!
-  userId: String!
+  userId: User! #imported from User!
   createdAt: Date
   updatedAt: Date
   status: String

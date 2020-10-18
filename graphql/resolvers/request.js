@@ -14,16 +14,16 @@ module.exports = {
             where = helpers.getFilterFormObject(args.filter);
         }
 
-        let sort = { updatedAt: "0" };
+        let sort = { updatedAt: "asc" };
         if (args.order != null && args.order != undefined) {
             sort = helpers.getOrderFromObject(args.order);
         }
 
         try {
             const requestList = Request.find(where).sort(sort)
+                .populate({ path: 'userId', model: 'User' })
                 .populate({ path: 'details.subproducto', model: 'subproducts' })
                 .populate({ path: 'details.additions.addition' });
-            //.populate({path: 'details', populate:  { path: 'additions', populate:  { path: 'addition' }   }});    
             return requestList;
         } catch (error) {
             throw error;
