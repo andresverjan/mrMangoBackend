@@ -88,10 +88,60 @@ module.exports = {
     try {
       const { _id } = args.request;
 
+      let request = await Request.findById(_id);
+
+      console.log(request._id);
+
+      request = {
+        ...request._doc,
+        status: "2",
+        updatedAt: new Date(),
+      };
+      console.log(request);
+
+      const newRequest = await Request.findByIdAndUpdate(request._id, request);
+
+      console.log(newRequest);
+      if (!newRequest) {
+        throw new Error("Request not found");
+      }
+      return { ...newRequest._doc, _id: newRequest._id };
+    } catch (error) {
+      throw error;
+    }
+  },
+  preparedRequest: async (args) => {
+    try {
+      const { _id } = args.request;
+
       const request = new Request({
         _id: _id,
         updatedAt: new Date().toISOString(),
-        status: 2,
+        status: 4,
+      });
+      const newRequest = await Request.findOneAndUpdate(
+        { _id: { $eq: request._id } },
+        { $set: request },
+        { new: true, upsert: true }
+      );
+
+      const newReq = await newRequest.save();
+      if (!newRequest) {
+        throw new Error("Request not found");
+      }
+      return { ...newRequest._doc, _id: newRequest._id };
+    } catch (error) {
+      throw error;
+    }
+  },
+  deliveredRequest: async (args) => {
+    try {
+      const { _id } = args.request;
+
+      const request = new Request({
+        _id: _id,
+        updatedAt: new Date().toISOString(),
+        status: 5,
       });
       const newRequest = await Request.findOneAndUpdate(
         { _id: { $eq: request._id } },
