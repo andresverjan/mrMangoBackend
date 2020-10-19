@@ -88,17 +88,15 @@ module.exports = {
     try {
       const { _id } = args.request;
 
-      const request = new Request({
+      const request = {
         _id: _id,
         updatedAt: new Date().toISOString(),
         status: 2,
-      });
-      const newRequest = await Request.findOneAndUpdate(
-        { _id: { $eq: request._id } },
-        { $set: request },
-        { new: true, upsert: true }
-      );
-
+      };
+      const newRequest = await Request.findByIdAndUpdate(request._id, request)
+      .then(updateRequest =>{
+          
+      })
       const newReq = await newRequest.save();
       if (!newRequest) {
         throw new Error("Request not found");
