@@ -7,7 +7,6 @@ module.exports = {
       const requestList = Request.find()
         .populate({ path: "details.subproducto", model: "subproducts" })
         .populate({ path: "details.additions.addition" });
-      //.populate({path: 'details', populate:  { path: 'additions', populate:  { path: 'addition' }   }});
       return requestList;
     } catch (error) {
       throw error;
@@ -42,7 +41,6 @@ module.exports = {
 
   createRequest: async (args) => {
     try {
-      //const currentDate =  helpers.getCurrentDateTime();
       const requestInfo = args.request,
         request = await Request.create({
           ...requestInfo,
@@ -89,19 +87,14 @@ module.exports = {
       const { _id } = args.request;
 
       let request = await Request.findById(_id);
-
-      console.log(request._id);
-
       request = {
         ...request._doc,
         status: "2",
         updatedAt: new Date(),
       };
-      console.log(request);
 
       const newRequest = await Request.findByIdAndUpdate(request._id, request);
 
-      console.log(newRequest);
       if (!newRequest) {
         throw new Error("Request not found");
       }
@@ -116,18 +109,14 @@ module.exports = {
 
       let request = await Request.findById(_id);
 
-      console.log(request._id);
-
       request = {
         ...request._doc,
         status: "4",
         updatedAt: new Date(),
-      };
-      console.log(request);
+      }
 
       const newRequest = await Request.findByIdAndUpdate(request._id, request);
 
-      console.log(newRequest);
       if (!newRequest) {
         throw new Error("Request not found");
       }
@@ -142,18 +131,14 @@ module.exports = {
 
       let request = await Request.findById(_id);
 
-      console.log(request._id);
-
       request = {
         ...request._doc,
         status: "5",
         updatedAt: new Date(),
       };
-      console.log(request);
 
       const newRequest = await Request.findByIdAndUpdate(request._id, request);
 
-      console.log(newRequest);
       if (!newRequest) {
         throw new Error("Request not found");
       }
@@ -168,18 +153,13 @@ module.exports = {
 
       let request = await Request.findById(_id);
 
-      console.log(request._id);
-
       request = {
         ...request._doc,
         status: "3",
         updatedAt: new Date(),
       };
-      console.log(request);
 
       const newRequest = await Request.findByIdAndUpdate(request._id, request);
-
-      console.log(newRequest);
       if (!newRequest) {
         throw new Error("Request not found");
       }
@@ -192,7 +172,6 @@ module.exports = {
   deleteRequest: async (args) => {
     try {
       const { _id } = args.request;
-      console.log(args);
       const request = new Request({
         _id: _id,
       });
