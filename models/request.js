@@ -6,9 +6,9 @@ const requestSchema = new Schema({
         type: String,
         required: false
     },
-    userId: {
-        type: String,
-        required: false
+    userId:{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     total: {
         type: String,

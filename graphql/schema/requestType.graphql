@@ -2,7 +2,7 @@
 scalar Date
 type Request {
   _id: ID!
-  userId: String!
+  userId: User! #imported from User!
   createdAt: Date
   updatedAt: Date
   status: String
@@ -56,6 +56,14 @@ input RequestObsInput {
   requestId: ID!
 }
 
+input RequestFilter {
+  status: String
+}
+
+input RequestOrderBy {
+    updatedAt: String
+}
+
 input RequestInputDelete {
   _id: ID!
 }
@@ -72,7 +80,7 @@ input RequestInputAccept{
 
 
 type Query {
-  requests: [Request!]
+  requests(filter:RequestFilter, order: RequestOrderBy): [Request!]
   getDetailByRequestId(requestId:ID!): Request!
   getMyRequest(userId:ID!):[Request!]
 }
