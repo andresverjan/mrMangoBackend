@@ -1,10 +1,22 @@
 const Request = require("../../models/request");
-const RequestObs = require("../../models/requestObs");
+const helpers = require("../../helpers");
 
 module.exports = {
   requests: async (args) => {
+    let where = {};
+    if (args.filter != null && args.filter != undefined) {
+      where = helpers.getFilterFormObject(args.filter);
+    }
+
+    let sort = { updatedAt: "asc" };
+    if (args.order != null && args.order != undefined) {
+      sort = helpers.getOrderFromObject(args.order);
+    }
+
     try {
-      const requestList = Request.find()
+      const requestList = Request.find(where)
+        .sort(sort)
+        .populate({ path: "userId", model: "User" })
         .populate({ path: "details.subproducto", model: "subproducts" })
         .populate({ path: "details.additions.addition" });
       return requestList;
@@ -82,6 +94,7 @@ module.exports = {
       throw error;
     }
   },
+
   acceptRequest: async (args) => {
     try {
       const { _id } = args.request;
@@ -113,7 +126,7 @@ module.exports = {
         ...request._doc,
         status: "4",
         updatedAt: new Date(),
-      }
+      };
 
       const newRequest = await Request.findByIdAndUpdate(request._id, request);
 
@@ -172,6 +185,7 @@ module.exports = {
   deleteRequest: async (args) => {
     try {
       const { _id } = args.request;
+      console.log(args);
       const request = new Request({
         _id: _id,
       });
