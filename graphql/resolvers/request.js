@@ -1,9 +1,5 @@
 
 const Request = require("../../models/request");
-const RequestDetail = require('../../models/requestdetails');
-const RequestDetailsAdditions = require('../../models/requestDetailsAdditions');
-const RequestObs = require("../../models/requestObs");
-const Subproducts = require("../../models/subproducts");
 const helpers = require("../../helpers");
 
 module.exports = {
@@ -30,7 +26,7 @@ module.exports = {
         }
     },
 
-    getDetailByRequestId: async (args) => {
+	getDetailByRequestId: async (args) => {
         try {
             const { requestId } = args;
             request = await Request.findOne({ _id: requestId }).populate({ path: 'observations', populate: 'oservations' });
@@ -39,9 +35,9 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-    },
+	},
 
-    getMyRequest: async (args) => {
+	getMyRequest: async (args) => {
         try {
             const { userId } = args,
                 requestList = await Request.find({ userId })
@@ -51,9 +47,9 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-    },
-
-    createRequest: async (args) => {
+	},
+	
+	createRequest: async (args) => {
         try {
             //const currentDate =  helpers.getCurrentDateTime();
             const requestInfo = args.request,
@@ -67,9 +63,9 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-    },
-
-    updateRequest: async (args) => {
+	},
+	
+	updateRequest: async (args) => {
         try {
             const {
                 _id,
@@ -99,57 +95,9 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-    },
-
-    cancelRequest: async (args) => {
-        try {
-            const { userId, _id, observations } = args.request;
-            const request = new Request({
-                _id: _id, //observations.requestId,
-                updatedAt: new Date().toISOString(),
-                status: 4,
-            });
-            console.log("QUE VIENE AQUÍ: ", _id);
-            console.log("Y QUE ES LO QUE VIENE AQUÍ: ", observations.requestId);
-            const newRequest = await Request.findOneAndUpdate(
-                { _id: { $eq: request._id } },
-                { $set: request },
-                { new: true, upsert: true }
-            );
-            console.log("Actualizó correctamente: ", newRequest);
-            const requestObs = new RequestObs({
-                requestId: request._id,
-                userId,
-                createdAt: new Date().toISOString(),
-                status: 4,
-                observation: observations.observation,
-            });
-            console.log(
-                "Observaciones que vienen en el request",
-                observations.observation
-            );
-            const newReqObs = await requestObs.save();
-            console.log("Nuevo requestObs: ", newReqObs);
-            const res = await Request.updateOne(
-                { _id: request._id },
-                {
-                    $push: { observations: newReqObs._id },
-                }
-            );
-
-            console.log("Respuesta del update: ", res);
-
-            if (!newRequest) {
-                throw new Error("Request not found");
-            }
-
-            return { ...newRequest._doc, _id: newRequest._id };
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    deleteRequest: async (args) => {
+	},
+	
+	deleteRequest: async (args) => {
         try {
             const { _id } = args.request;
             console.log(args);
@@ -162,4 +110,94 @@ module.exports = {
             throw error;
         }
     },
+
+	acceptRequest: async (args) => {
+		try {
+		  const { _id } = args.request;
+	
+		  let request = await Request.findById(_id);
+		  request = {
+			...request._doc,
+			status: "2",
+			updatedAt: new Date(),
+		  };
+	
+		  const newRequest = await Request.findByIdAndUpdate(request._id, request);
+	
+		  if (!newRequest) {
+			throw new Error("Request not found");
+		  }
+		  return { ...newRequest._doc, _id: newRequest._id };
+		} catch (error) {
+		  throw error;
+		}
+	},
+
+	preparedRequest: async (args) => {
+		try {
+		  const { _id } = args.request;
+	
+		  let request = await Request.findById(_id);
+	
+		  request = {
+			...request._doc,
+			status: "4",
+			updatedAt: new Date(),
+		  };
+	
+		  const newRequest = await Request.findByIdAndUpdate(request._id, request);
+	
+		  if (!newRequest) {
+			throw new Error("Request not found");
+		  }
+		  return { ...newRequest._doc, _id: newRequest._id };
+		} catch (error) {
+		  throw error;
+		}
+	},
+
+	deliveredRequest: async (args) => {
+		try {
+		  const { _id } = args.request;
+	
+		  let request = await Request.findById(_id);
+	
+		  request = {
+			...request._doc,
+			status: "5",
+			updatedAt: new Date(),
+		  };
+	
+		  const newRequest = await Request.findByIdAndUpdate(request._id, request);
+	
+		  if (!newRequest) {
+			throw new Error("Request not found");
+		  }
+		  return { ...newRequest._doc, _id: newRequest._id };
+		} catch (error) {
+		  throw error;
+		}
+	},
+
+    cancelRequest: async (args) => {
+    try {
+      const { _id } = args.request;
+
+      let request = await Request.findById(_id);
+
+      request = {
+        ...request._doc,
+        status: "3",
+        updatedAt: new Date(),
+      };
+
+      const newRequest = await Request.findByIdAndUpdate(request._id, request);
+      if (!newRequest) {
+        throw new Error("Request not found");
+      }
+      return { ...newRequest._doc, _id: newRequest._id };
+    } catch (error) {
+      throw error;
+    }
+  },
 };
