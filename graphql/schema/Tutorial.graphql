@@ -1,0 +1,41 @@
+type Tutorial {
+  id : String
+  title: String!
+  description: String
+  published: String
+}
+
+input TutorialInput {
+  id : String
+  title: String!
+  description: String
+  published: String
+}
+
+input TutorialInputUpdate {
+  id : String!
+   title: String!
+  description: String
+  published: String
+}
+
+input TutorialInputDelete {
+  id: String!  
+}
+
+
+input TutorialFilter {
+  title: String!
+  description: String
+  published: String
+}  
+
+type Query {
+  tutoriales: [Tutorial!]
+}
+
+type Mutation {
+  createTutorial(tutorial: TutorialInput): Tutorial
+  deleteTutorial(tutorial: TutorialInputDelete): Tutorial
+  updateTutorial(tutorial: TutorialInputUpdate): Tutorial
+}
