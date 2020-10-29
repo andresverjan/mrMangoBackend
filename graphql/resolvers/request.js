@@ -95,9 +95,9 @@ module.exports = {
         } catch (error) {
             throw error;
         }
-	},
-	
-	deleteRequest: async (args) => {
+    },
+
+    deleteRequest: async (args) => {
         try {
             const { _id } = args.request;
             console.log(args);
@@ -111,93 +111,90 @@ module.exports = {
         }
     },
 
-	acceptRequest: async (args) => {
-		try {
-		  const { _id } = args.request;
-	
-		  let request = await Request.findById(_id);
-		  request = {
-			...request._doc,
-			status: "2",
-			updatedAt: new Date(),
-		  };
-	
-		  const newRequest = await Request.findByIdAndUpdate(request._id, request);
-	
-		  if (!newRequest) {
-			throw new Error("Request not found");
-		  }
-		  return { ...newRequest._doc, _id: newRequest._id };
-		} catch (error) {
-		  throw error;
-		}
-	},
-
-	preparedRequest: async (args) => {
-		try {
-		  const { _id } = args.request;
-	
-		  let request = await Request.findById(_id);
-	
-		  request = {
-			...request._doc,
-			status: "4",
-			updatedAt: new Date(),
-		  };
-	
-		  const newRequest = await Request.findByIdAndUpdate(request._id, request);
-	
-		  if (!newRequest) {
-			throw new Error("Request not found");
-		  }
-		  return { ...newRequest._doc, _id: newRequest._id };
-		} catch (error) {
-		  throw error;
-		}
-	},
-
-	deliveredRequest: async (args) => {
-		try {
-		  const { _id } = args.request;
-	
-		  let request = await Request.findById(_id);
-	
-		  request = {
-			...request._doc,
-			status: "5",
-			updatedAt: new Date(),
-		  };
-	
-		  const newRequest = await Request.findByIdAndUpdate(request._id, request);
-	
-		  if (!newRequest) {
-			throw new Error("Request not found");
-		  }
-		  return { ...newRequest._doc, _id: newRequest._id };
-		} catch (error) {
-		  throw error;
-		}
-	},
-
-	cancelRequest: async (args) => {
-		try {
-		  const { _id } = args.request;
-	
-		  let request = await Request.findById(_id);
-	
-		  request = {
-			...request._doc,
-			status: "3",
-			updatedAt: new Date(),
-		  };
-	
-		  const newRequest = await Request.findByIdAndUpdate(request._id, request);
-		  if (!newRequest) {
-			throw new Error("Request not found");
-		  }
-		  return { ...newRequest._doc, _id: newRequest._id };
-		} catch (error) {
-		  throw error;
-		}
-	},
+    acceptRequest: async (args) => {
+      try {
+        const { _id } = args.request;
+  
+        let request = await Request.findById(_id);
+        request = {
+          ...request._doc,
+          status: "2",
+          updatedAt: new Date(),
+        };
+  
+        const newRequest = await Request.findByIdAndUpdate(request._id, request);
+  
+        if (!newRequest) {
+          throw new Error("Request not found");
+        }
+        return { ...newRequest._doc, _id: newRequest._id };
+      } catch (error) {
+        throw error;
+      }
+    },
+    preparedRequest: async (args) => {
+      try {
+        const { _id } = args.request;
+  
+        let request = await Request.findById(_id);
+  
+        request = {
+          ...request._doc,
+          status: "4",
+          updatedAt: new Date(),
+        };
+  
+        const newRequest = await Request.findByIdAndUpdate(request._id, request);
+  
+        if (!newRequest) {
+          throw new Error("Request not found");
+        }
+        return { ...newRequest._doc, _id: newRequest._id };
+      } catch (error) {
+        throw error;
+      }
+    },
+    deliveredRequest: async (args) => {
+      try {
+        const { _id } = args.request;
+  
+        let request = await Request.findById(_id);
+  
+        request = {
+          ...request._doc,
+          status: "5",
+          updatedAt: new Date(),
+        };
+  
+        const newRequest = await Request.findByIdAndUpdate(request._id, request);
+  
+        if (!newRequest) {
+          throw new Error("Request not found");
+        }
+        return { ...newRequest._doc, _id: newRequest._id };
+      } catch (error) {
+        throw error;
+      }
+    },
+    cancelRequest: async (args) => {
+      try {
+        const { _id } = args.request;
+  
+        let request = await Request.findById(_id);
+  
+        request = {
+          ...request._doc,
+          status: "3",
+          updatedAt: new Date(),
+        };
+  
+        const newRequest = await Request.findByIdAndUpdate(request._id, request);
+        if (!newRequest) {
+          throw new Error("Request not found");
+        }
+        return { ...newRequest._doc, _id: newRequest._id };
+      } catch (error) {
+        throw error;
+      }
+    },
 };

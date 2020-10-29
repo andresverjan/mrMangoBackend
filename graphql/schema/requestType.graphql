@@ -69,15 +69,13 @@ input RequestInputDelete {
 }
 
 input RequestInputCancelar{
-_id: ID!
-observations: String
-
+  _id: ID!
+  observations: String
 }
 
 input RequestInputAccept{
   _id: ID!
 }
-
 
 type Query {
   requests(filter:RequestFilter, order: RequestOrderBy): [Request!]
