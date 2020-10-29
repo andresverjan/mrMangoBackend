@@ -1,0 +1,43 @@
+type Etiqueta {
+  id : String!
+  nombre: String!
+  descripcion: String
+  label: String
+  idioma_id: String
+}
+
+input EtiquetaInput {
+  id : String!
+  nombre: String!
+  descripcion: String
+  label: String
+  idioma_id: String
+}
+
+input EtiquetaInputUpdate {
+  id : String!
+  title: String!
+  descripcion: String
+  published: String
+}
+
+input EtiquetaInputDelete {
+  id: String!  
+}
+
+
+input EtiquetaFilter {
+  title: String!
+  descripcion: String
+  published: String
+}  
+
+type Query {
+  etiquetas: [Etiqueta!]
+}
+
+type Mutation {
+  createEtiqueta(etiqueta: EtiquetaInput): Etiqueta
+  deleteEtiqueta(etiqueta: EtiquetaInputDelete): Etiqueta
+  updateEtiqueta(etiqueta: EtiquetaInputUpdate): Etiqueta
+}
